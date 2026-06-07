@@ -1,0 +1,7 @@
+# Windows "mark of the web" metadata files
+*Zone.Identifier
+
+# Node (only used transiently for local testing)
+node_modules/
+package-lock.json
+package.json

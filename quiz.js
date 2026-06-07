@@ -1,0 +1,260 @@
+/*
+ * Alt Text Quiz — state machine and rendering.
+ * Framework-free. Reads the QUESTIONS array from questions.js.
+ */
+
+(function () {
+  "use strict";
+
+  // answers[i] = the option index the user chose for question i (undefined if unanswered).
+  // Score is derived from this array, so going back and forward never double-counts.
+  const state = {
+    screen: "start", // start | intro | question | results
+    currentIndex: 0,
+    answers: [],
+  };
+
+  // --- element references -------------------------------------------------
+  const screens = {
+    start: document.getElementById("screen-start"),
+    intro: document.getElementById("screen-intro"),
+    question: document.getElementById("screen-question"),
+    results: document.getElementById("screen-results"),
+  };
+
+  const els = {
+    progress: document.getElementById("progress"),
+    image: document.getElementById("q-image"),
+    prompt: document.getElementById("q-prompt"),
+    optionsForm: document.getElementById("q-options"),
+    backBtn: document.getElementById("back-btn"),
+    submitBtn: document.getElementById("submit-btn"),
+    nextBtn: document.getElementById("next-btn"),
+    feedback: document.getElementById("feedback"),
+    liveRegion: document.getElementById("live-region"),
+    score: document.getElementById("final-score"),
+    resultsMsg: document.getElementById("results-message"),
+    shareBtn: document.getElementById("share-btn"),
+    shareStatus: document.getElementById("share-status"),
+  };
+
+  // --- screen routing -----------------------------------------------------
+  function showScreen(name) {
+    state.screen = name;
+    Object.keys(screens).forEach(function (key) {
+      screens[key].hidden = key !== name;
+    });
+  }
+
+  // --- question rendering -------------------------------------------------
+  function renderQuestion() {
+    const i = state.currentIndex;
+    const q = QUESTIONS[i];
+
+    els.progress.textContent = "Question " + (i + 1) + " of " + QUESTIONS.length;
+    els.image.src = q.image;
+    els.image.alt = q.screenshotAlt;
+    els.prompt.textContent = q.prompt;
+
+    // Build radio options.
+    els.optionsForm.innerHTML = "";
+    q.options.forEach(function (opt, idx) {
+      const id = "opt-" + idx;
+
+      const wrapper = document.createElement("label");
+      wrapper.className = "option";
+      wrapper.setAttribute("for", id);
+
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = "answer";
+      input.id = id;
+      input.value = String(idx);
+      input.addEventListener("change", function () {
+        els.submitBtn.disabled = false;
+      });
+
+      const span = document.createElement("span");
+      span.className = "option-text";
+      span.textContent = opt.text;
+
+      wrapper.appendChild(input);
+      wrapper.appendChild(span);
+      els.optionsForm.appendChild(wrapper);
+    });
+
+    // Back is available on every question except the first.
+    els.backBtn.hidden = i === 0;
+
+    // Reset feedback/live region for a clean state.
+    els.feedback.hidden = true;
+    els.feedback.className = "feedback";
+    els.feedback.innerHTML = "";
+    els.liveRegion.textContent = "";
+
+    if (state.answers[i] !== undefined) {
+      // Previously answered — restore the locked, answered state (no announcement).
+      showAnswerState(i, state.answers[i], false);
+    } else {
+      // Fresh question.
+      els.submitBtn.disabled = true;
+      els.submitBtn.hidden = false;
+      els.nextBtn.hidden = true;
+    }
+  }
+
+  // Render the answered/locked state for question i with the chosen option.
+  function showAnswerState(i, selected, announce) {
+    const q = QUESTIONS[i];
+    const isCorrect = selected === q.correctIndex;
+
+    const labels = els.optionsForm.querySelectorAll(".option");
+    labels.forEach(function (label, idx) {
+      const input = label.querySelector("input");
+      input.disabled = true;
+      input.checked = idx === selected;
+      label.classList.remove("is-correct", "is-wrong");
+      if (idx === q.correctIndex) {
+        label.classList.add("is-correct");
+      } else if (idx === selected) {
+        label.classList.add("is-wrong");
+      }
+    });
+
+    const heading = isCorrect ? "✓ Correct" : "✗ Not quite";
+    els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
+    els.feedback.innerHTML =
+      '<p class="feedback-heading">' + heading + "</p>" +
+      "<p>" + escapeHtml(q.explanation) + "</p>";
+    els.feedback.hidden = false;
+
+    els.submitBtn.hidden = true;
+    els.nextBtn.hidden = false;
+    els.nextBtn.textContent =
+      i === QUESTIONS.length - 1 ? "See results" : "Next question";
+
+    if (announce) {
+      els.liveRegion.textContent =
+        (isCorrect ? "Correct. " : "Not quite. ") + q.explanation;
+      els.nextBtn.focus();
+    }
+  }
+
+  function getSelectedIndex() {
+    const checked = els.optionsForm.querySelector('input[name="answer"]:checked');
+    return checked ? parseInt(checked.value, 10) : -1;
+  }
+
+  function submitAnswer() {
+    const i = state.currentIndex;
+    if (state.answers[i] !== undefined) return; // already answered
+    const selected = getSelectedIndex();
+    if (selected < 0) return;
+
+    state.answers[i] = selected;
+    showAnswerState(i, selected, true);
+  }
+
+  function next() {
+    if (state.currentIndex < QUESTIONS.length - 1) {
+      state.currentIndex++;
+      renderQuestion();
+      focusPrompt();
+    } else {
+      showResults();
+    }
+  }
+
+  function back() {
+    if (state.currentIndex > 0) {
+      state.currentIndex--;
+      renderQuestion();
+      focusPrompt();
+    }
+  }
+
+  function focusPrompt() {
+    els.prompt.setAttribute("tabindex", "-1");
+    els.prompt.focus();
+  }
+
+  function computeScore() {
+    return state.answers.reduce(function (total, selected, i) {
+      return total + (selected === QUESTIONS[i].correctIndex ? 1 : 0);
+    }, 0);
+  }
+
+  function showResults() {
+    showScreen("results");
+    const total = QUESTIONS.length;
+    const score = computeScore();
+    els.score.textContent = score + " / " + total;
+
+    const pct = score / total;
+    let msg;
+    if (pct === 1) {
+      msg = "Perfect score — you’ve got a real feel for alt text. Go forth and describe.";
+    } else if (pct >= 0.7) {
+      msg = "Nicely done. You’ve got the core ideas down; skim the resources for the edge cases.";
+    } else if (pct >= 0.4) {
+      msg = "Good start. The resources below will fill in the gaps — context, conciseness, and when to leave it empty.";
+    } else {
+      msg = "Alt text is trickier than it looks. The resources below are a great place to build from.";
+    }
+    els.resultsMsg.textContent = msg;
+    els.liveRegion.textContent =
+      "Quiz complete. Your score is " + score + " out of " + total + ". " + msg;
+
+    // Manage focus: #screen-question (which held focus) is now hidden, so move
+    // focus into the results screen rather than letting it fall to <body>.
+    const title = document.getElementById("results-title");
+    title.setAttribute("tabindex", "-1");
+    title.focus();
+  }
+
+  function startQuiz() {
+    state.currentIndex = 0;
+    state.answers = [];
+    renderQuestion();
+    showScreen("question");
+    focusPrompt();
+  }
+
+  function shareQuiz() {
+    const url = window.location.href;
+    function ok() {
+      els.shareStatus.textContent = "Link copied to clipboard!";
+    }
+    function fallback() {
+      els.shareStatus.textContent = "Copy this link: " + url;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(ok, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  // --- utilities ----------------------------------------------------------
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // --- wiring -------------------------------------------------------------
+  document.getElementById("start-btn").addEventListener("click", function () {
+    showScreen("intro");
+    const h2 = screens.intro.querySelector("h2");
+    h2.setAttribute("tabindex", "-1");
+    h2.focus();
+  });
+  document.getElementById("begin-btn").addEventListener("click", startQuiz);
+  els.backBtn.addEventListener("click", back);
+  els.submitBtn.addEventListener("click", submitAnswer);
+  els.nextBtn.addEventListener("click", next);
+  els.shareBtn.addEventListener("click", shareQuiz);
+  document.getElementById("restart-btn").addEventListener("click", startQuiz);
+
+  showScreen("start");
+})();

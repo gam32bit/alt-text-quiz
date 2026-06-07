@@ -1,0 +1,423 @@
+/* Alt Text Quiz — VIMS blue / silver / white theme. No orange. */
+
+:root {
+  --vims-blue: #003b5c;        /* deep VIMS navy */
+  --vims-blue-bright: #00598a; /* accent / links */
+  --vims-blue-light: #e6eef3;  /* tint backgrounds */
+  --silver: #d9dee2;
+  --silver-dark: #9aa6ad;
+  --ink: #1c2b33;
+  --white: #ffffff;
+  --correct: #1d6b3a;
+  --correct-bg: #e7f4ec;
+  --wrong: #8a1f1f;
+  --wrong-bg: #fbeaea;
+  --radius: 10px;
+  --shadow: 0 2px 10px rgba(0, 59, 92, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  color: var(--ink);
+  background: var(--vims-blue-light);
+  line-height: 1.55;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+/* --- Accessibility helpers ------------------------------------------------ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--vims-blue);
+  color: var(--white);
+  padding: 0.6rem 1rem;
+  z-index: 10;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--vims-blue-bright);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Screens ------------------------------------------------------------- */
+.screen {
+  background: var(--white);
+  border: 1px solid var(--silver);
+  border-top: 5px solid var(--vims-blue);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.75rem;
+}
+.screen--center {
+  text-align: center;
+}
+
+h1 {
+  color: var(--vims-blue);
+  font-size: 2rem;
+  margin: 0.25rem 0 0.75rem;
+}
+h2 {
+  color: var(--vims-blue);
+  font-size: 1.4rem;
+  margin: 0 0 0.75rem;
+}
+h3 {
+  color: var(--vims-blue);
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.lede {
+  font-size: 1.1rem;
+  max-width: 48ch;
+  margin: 0 auto 1.5rem;
+}
+
+/* Decorative-flair photos on the start / intro / results screens. */
+.flair {
+  display: block;
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--silver);
+  margin: 0 0 1.25rem;
+}
+/* Shift the crop up so the subjects sit a little higher in frame. */
+.flair--high {
+  object-position: center 22%;
+}
+
+/* Intro example: a photo shown with its alt text. */
+.example {
+  margin: 1.5rem 0;
+}
+.example-img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 360px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid var(--silver);
+  background: var(--white);
+}
+.example-caption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-style: italic;
+  color: var(--ink);
+}
+.example-label {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--vims-blue);
+}
+
+/* --- Buttons ------------------------------------------------------------- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.7rem 1.4rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.btn--primary {
+  background: var(--vims-blue);
+  color: var(--white);
+}
+.btn--primary:hover:not(:disabled) {
+  background: var(--vims-blue-bright);
+}
+.btn--primary:disabled {
+  background: var(--silver-dark);
+  cursor: not-allowed;
+}
+.btn--secondary {
+  background: var(--white);
+  color: var(--vims-blue);
+  border-color: var(--vims-blue);
+}
+.btn--secondary:hover {
+  background: var(--vims-blue-light);
+}
+
+/* --- Intro primer -------------------------------------------------------- */
+.primer {
+  background: var(--vims-blue-light);
+  border: 1px solid var(--silver);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin: 1.25rem 0;
+}
+.primer > summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--vims-blue);
+}
+.primer-body {
+  margin-top: 0.75rem;
+}
+.primer-body ul {
+  padding-left: 1.2rem;
+}
+.primer-body code {
+  background: var(--white);
+  border: 1px solid var(--silver);
+  border-radius: 4px;
+  padding: 0 0.3em;
+}
+
+/* --- Question ------------------------------------------------------------ */
+.progress {
+  color: var(--silver-dark);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+}
+
+.q-figure {
+  margin: 0 0 1rem;
+}
+.q-figure img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid var(--silver);
+  border-radius: 6px;
+  background: var(--white);
+}
+.q-caption {
+  font-size: 0.9rem;
+  color: var(--silver-dark);
+  font-style: italic;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.q-prompt {
+  font-size: 1.25rem;
+}
+
+.q-options-fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+.q-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin: 0 0 1rem;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  border: 2px solid var(--silver);
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  background: var(--white);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.option:hover {
+  border-color: var(--vims-blue-bright);
+  background: var(--vims-blue-light);
+}
+.option input {
+  margin-top: 0.2rem;
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--vims-blue);
+}
+.option-text {
+  flex: 1;
+}
+.option:has(input:checked) {
+  border-color: var(--vims-blue);
+  background: var(--vims-blue-light);
+}
+
+/* Answered states — never rely on color alone; we also add ✓/✗ markers. */
+.option.is-correct {
+  border-color: var(--correct);
+  background: var(--correct-bg);
+}
+.option.is-correct .option-text::after {
+  content: " ✓ best answer";
+  font-weight: 700;
+  color: var(--correct);
+}
+.option.is-wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-bg);
+}
+.option.is-wrong .option-text::after {
+  content: " ✗ your choice";
+  font-weight: 700;
+  color: var(--wrong);
+}
+
+/* --- Feedback ------------------------------------------------------------ */
+.feedback {
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 1rem;
+  border-left: 5px solid var(--silver-dark);
+  background: var(--vims-blue-light);
+}
+.feedback.is-correct {
+  border-left-color: var(--correct);
+  background: var(--correct-bg);
+}
+.feedback.is-wrong {
+  border-left-color: var(--wrong);
+  background: var(--wrong-bg);
+}
+.feedback-heading {
+  font-weight: 700;
+  margin: 0 0 0.4rem;
+}
+.feedback.is-correct .feedback-heading {
+  color: var(--correct);
+}
+.feedback.is-wrong .feedback-heading {
+  color: var(--wrong);
+}
+.feedback p:last-child {
+  margin-bottom: 0;
+}
+
+.q-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.q-actions-spacer {
+  flex: 1; /* pushes Back to the left, Submit/Next to the right */
+}
+
+/* --- Results ------------------------------------------------------------- */
+.final-score {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--vims-blue);
+  margin: 0.5rem 0;
+}
+.results-message {
+  font-size: 1.1rem;
+  max-width: 50ch;
+  margin: 0 auto 1rem;
+}
+.results-learn {
+  text-align: left;
+  max-width: 36rem;
+  margin: 1.75rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--silver);
+}
+.learn-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--silver-dark);
+  margin: 0 0 0.5rem;
+}
+.resources {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.resources li {
+  margin: 0.4rem 0;
+}
+a {
+  color: var(--vims-blue-bright);
+}
+.resources a {
+  font-weight: 600;
+}
+
+.results-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+.share-status {
+  min-height: 1.2em;
+  margin: 0.75rem 0 0;
+  color: var(--vims-blue);
+  font-weight: 600;
+}
+
+/* --- Responsive ---------------------------------------------------------- */
+@media (max-width: 520px) {
+  .app {
+    padding: 1rem 0.75rem 2rem;
+  }
+  .screen {
+    padding: 1.25rem;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
+  .q-actions {
+    justify-content: stretch;
+  }
+  .q-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

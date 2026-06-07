@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alt Text Quiz — VIMS</title>
+    <meta
+      name="description"
+      content="An interactive quiz that teaches how to write good alt text, using real examples from the VIMS website."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <main id="main" class="app">
+      <!-- Visually-hidden live region for screen-reader announcements -->
+      <div id="live-region" class="sr-only" aria-live="polite" role="status"></div>
+
+      <!-- 1. Landing / start ------------------------------------------------ -->
+      <section id="screen-start" class="screen screen--center" aria-labelledby="start-title">
+        <img
+          class="flair"
+          src="src/images/54899275930_f3c08b7609_k (1).jpg"
+          alt="Rainbow over Penniman Spit Living Shoreline"
+        />
+        <h1 id="start-title">The Alt Text Quiz</h1>
+        <p class="lede">
+          Good alt text makes images work for everyone. Test your instincts on real
+          examples from the VIMS website.
+        </p>
+        <button id="start-btn" class="btn btn--primary" type="button">Start</button>
+      </section>
+
+      <!-- 2. Intro / explainer --------------------------------------------- -->
+      <section id="screen-intro" class="screen" aria-labelledby="intro-title" hidden>
+        <h2 id="intro-title">How this works</h2>
+        <p>
+          You’ll see 10 real images from the VIMS website, each shown in the context where
+          it appears. For each one, pick the alt text you think works best. After you answer,
+          we’ll explain why — including a few that are trickier than they look. You can go
+          back at any time to revisit your answers.
+        </p>
+
+        <figure class="example">
+          <img
+            class="example-img"
+            src="src/images/54898970691_d883b10804_k (1).jpg"
+            alt="Mantis Shrimp caught while scraping for blue crabs on Eastern Shore"
+          />
+          <figcaption class="example-caption">
+            <span class="example-label">Alt text:</span>
+            “Mantis Shrimp caught while scraping for blue crabs on Eastern Shore”
+          </figcaption>
+        </figure>
+
+        <details class="primer">
+          <summary>New to alt text? Read this first (optional)</summary>
+          <div class="primer-body">
+            <p>
+              <strong>Alt text</strong> (alternative text) is a short written description of
+              an image, added in the page’s code. Screen readers read it aloud to people who
+              can’t see the image, and it appears if the image fails to load.
+            </p>
+            <p>A few guiding ideas you’ll see throughout the quiz:</p>
+            <ul>
+              <li><strong>Convey purpose, not pixels.</strong> Describe why the image is there, not every visual detail.</li>
+              <li><strong>Be concise.</strong> A short, accurate phrase usually beats a long one.</li>
+              <li><strong>Skip “image of” / “photo of.”</strong> Screen readers already say it’s an image.</li>
+              <li><strong>Decorative images get empty alt.</strong> If an image only repeats nearby text or is pure decoration, use <code>alt=""</code> so it’s skipped.</li>
+              <li><strong>Complex images need more.</strong> Charts and maps often need a summary plus the data offered another way.</li>
+            </ul>
+          </div>
+        </details>
+
+        <button id="begin-btn" class="btn btn--primary" type="button">Begin the quiz</button>
+      </section>
+
+      <!-- 3. Question ------------------------------------------------------- -->
+      <section id="screen-question" class="screen" aria-labelledby="q-prompt" hidden>
+        <p id="progress" class="progress"></p>
+
+        <figure class="q-figure">
+          <img id="q-image" src="" alt="" />
+        </figure>
+
+        <h2 id="q-prompt" class="q-prompt"></h2>
+
+        <form id="answer-form" onsubmit="return false;">
+          <fieldset class="q-options-fieldset">
+            <legend class="sr-only">Choose the best alt text</legend>
+            <div id="q-options" class="q-options"></div>
+          </fieldset>
+
+          <div
+            id="feedback"
+            class="feedback"
+            role="region"
+            aria-label="Answer feedback"
+            hidden
+          ></div>
+
+          <div class="q-actions">
+            <button id="back-btn" class="btn btn--secondary" type="button" hidden>
+              ← Back
+            </button>
+            <span class="q-actions-spacer"></span>
+            <button id="submit-btn" class="btn btn--primary" type="button" disabled>
+              Submit answer
+            </button>
+            <button id="next-btn" class="btn btn--primary" type="button" hidden>
+              Next question
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 4. Results -------------------------------------------------------- -->
+      <section id="screen-results" class="screen screen--center" aria-labelledby="results-title" hidden>
+        <img
+          class="flair flair--high"
+          src="src/images/55294819486_eda9ec4ba0_k.jpg"
+          alt="Batten School & VIMS Spring 2026 Graduating Class"
+        />
+        <h2 id="results-title">Your results</h2>
+        <p class="final-score" id="final-score"></p>
+        <p id="results-message" class="results-message"></p>
+
+        <div class="results-learn">
+          <h3 class="learn-heading">Keep learning</h3>
+          <ul class="resources">
+            <li>
+              <a href="https://guides.libraries.wm.edu/online-accessibility/alt-text" target="_blank" rel="noopener noreferrer">
+                W&amp;M Libraries — Writing alt text
+              </a>
+            </li>
+            <li>
+              <a href="https://docs.acquia.com/web-governance/provide-text-alternative-images-and-graphics" target="_blank" rel="noopener noreferrer">
+                Acquia — Provide a text alternative for images and graphics
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="results-actions">
+          <button id="share-btn" class="btn btn--secondary" type="button">Share quiz</button>
+          <button id="restart-btn" class="btn btn--secondary" type="button">Retake quiz</button>
+        </div>
+        <p id="share-status" class="share-status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <script src="questions.js"></script>
+    <script src="quiz.js"></script>
+  </body>
+</html>
