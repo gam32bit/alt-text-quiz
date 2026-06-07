@@ -18,7 +18,7 @@ const DECORATIVE = "(no alt text — mark the image decorative)";
 
 const QUESTIONS = [
   {
-    image: "src/images/Screenshot 2026-06-07 112036.png",
+    image: "src/images/reu-interns.png",
     screenshotAlt:
       "Screenshot of a VIMS web page section titled “Programs for College Students.” It shows a group photo of people standing together holding certificates, followed by a paragraph of body text about research experience programs. There is no caption describing the photo. The question asks what alt text the photo should have.",
     prompt: "What is the best alt text for this group photo?",
@@ -36,7 +36,7 @@ const QUESTIONS = [
       "Context is the whole point here. These aren’t just “college students” — they’re Research Experiences for Undergraduates (REU) interns, and the certificates and location are meaningful details the surrounding text doesn’t fully spell out. Because there’s no caption carrying that information, the alt text has to.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112153.png",
+    image: "src/images/tidewatch-legend.png",
     screenshotAlt:
       "Screenshot of a tidewatch water-level forecast chart for Sewells Point. Below the chart is a legend made of small colored symbols paired with text labels such as “Observed,” “Astronomic,” and “Residual.” A red arrow has been added pointing to the small red dot symbol next to the “Observed” label. The question asks about that red dot.",
     prompt: "What is the best alt text for the red dot in the legend (marked by the arrow)?",
@@ -51,7 +51,7 @@ const QUESTIONS = [
       "Trick question! The red dot is decorative. The legend already has a visible text label (“Observed”) right next to it, so describing the dot would just repeat information a screen reader already announces. Decorative images get an empty alt (alt=\"\") so assistive tech skips them.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112450.png",
+    image: "src/images/american-shad.png",
     screenshotAlt:
       "Screenshot of a species page headed “American shad” with the scientific name “Alosa sapidissima” below it, then a black-and-white scientific illustration of the fish in side profile, followed by descriptive body text. The question asks what alt text the illustration should have.",
     prompt: "What is the best alt text for this fish illustration?",
@@ -69,7 +69,7 @@ const QUESTIONS = [
       "Alt text doesn’t have to be verbose. “American shad” identifies the subject, and the detailed anatomy lives in the body text where it belongs. (The page heading also says “American shad,” but since this is the main content image illustrating the species, naming it briefly is appropriate — just resist the urge to write a paragraph.)",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112539.png",
+    image: "src/images/directory-headshot.png",
     screenshotAlt:
       "Screenshot of a staff directory entry: a headshot on the left, and on the right the name “Joseph Caterine,” job title “Web & Content Strategist,” and contact details. The question asks what alt text the headshot should have.",
     prompt: "What is the best alt text for this headshot?",
@@ -84,7 +84,7 @@ const QUESTIONS = [
       "Just the name. Don’t start alt text with “Headshot of,” “Image of,” or “Photo of” — screen readers already announce that it’s an image, so those words are redundant. For a profile photo, the person’s name is exactly what the reader needs.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112636.png",
+    image: "src/images/natural-resources-icon.png",
     screenshotAlt:
       "Screenshot of a decorative card: a small stylized fish icon sits above a heading that reads “NATURAL RESOURCES,” followed by a sentence about sustainable management of fisheries and aquaculture. The question asks about the fish icon above the heading.",
     prompt: "What is the best alt text for this fish icon?",
@@ -99,7 +99,7 @@ const QUESTIONS = [
       "Another trick — it’s decorative. The icon is paired with the visible “Natural Resources” heading, which already conveys the meaning. The icon is just visual flair, so it gets an empty alt (alt=\"\"). Writing “Natural Resources” as the alt would make a screen reader announce the same words twice.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112728.png",
+    image: "src/images/bottom-oxygen-map.png",
     screenshotAlt:
       "Screenshot of a map titled “Bottom Oxygen: Today’s Forecast, June 7, 2026.” It shows the Chesapeake Bay shaded with a color scale from red (low / hypoxic oxygen) to blue (high / healthy oxygen), with a dissolved-oxygen legend on the right. The question asks what alt text best serves this data map.",
     prompt: "What is the best alt text for this forecast map?",
@@ -117,7 +117,7 @@ const QUESTIONS = [
       "Complex images like maps and charts often have no perfect short answer — you do your best to summarize the key takeaway. But the deeper lesson: real accessibility means giving people the underlying data another way, such as a downloadable file or a data table on the page. Alt text alone can’t make a dense map fully accessible.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 121046.png",
+    image: "src/images/sav-coverage-chart.png",
     screenshotAlt:
       "Screenshot of a line/area chart showing submerged aquatic vegetation (SAV) coverage in the Chesapeake Bay in hectares, with years from 1980 to the present along the x-axis and a horizontal line marking a goal of 74,821 hectares. The shaded area trends generally upward across the period. The question asks what alt text best serves this chart.",
     prompt: "What is the best alt text for this chart?",
@@ -135,7 +135,7 @@ const QUESTIONS = [
       "Like the oxygen map, a data chart has no single perfect alt text. Summarize what the chart actually shows — here, a general upward trend in coverage from 1980 to the present, still short of the goal line — then, for genuine accessibility, provide the data as a table or download so people can explore the numbers themselves.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 113132.png",
+    image: "src/images/marine-life-day.png",
     screenshotAlt:
       "Screenshot of a “For the Public” page section: a photo of several people seated at a table looking into microscopes at an event, above body text about VIMS public programs. The question asks what alt text the photo should have.",
     prompt: "What is the best alt text for this event photo?",
@@ -152,7 +152,7 @@ const QUESTIONS = [
       "Context again: naming the event (Marine Life Day) and the activity (examining specimens under microscopes) tells the reader why this photo is here. “People at tables” is technically true but strips out everything that makes the image meaningful.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 112319.png",
+    image: "src/images/marine-science-day-crab.png",
     screenshotAlt:
       "Screenshot of a news article about Marine Science Day. It shows a photo of a young child smiling and holding up a small crab, and directly below the photo is a visible caption that reads “James, a young Marine Science Day attendee, holding a blue crab. Photo by Ethan Smith.” The question asks what alt text the photo should have, given that caption.",
     prompt: "This photo has a visible caption on the page (you can see it in the screenshot). What is the best alt text?",
@@ -167,7 +167,7 @@ const QUESTIONS = [
       "A visible caption is NOT a substitute for alt text. The caption is ordinary page text — it isn’t programmatically tied to the image the way alt text is, and captions and alt text serve different purposes. So the image still needs its own description: name the subject and the context — a young attendee holding a blue crab at Marine Science Day.",
   },
   {
-    image: "src/images/Screenshot 2026-06-07 113037.png",
+    image: "src/images/oyster-spat.png",
     screenshotAlt:
       "Screenshot of a “History & Mission” page section: a close-up photo of an open hand holding a cluster of small juvenile oysters, above body text about an oyster-breeding program. There is no caption. The question asks what alt text the photo should have.",
     prompt: "What is the best alt text for this close-up photo?",
