@@ -19,12 +19,9 @@
 
       <!-- 1. Landing / start ------------------------------------------------ -->
       <section id="screen-start" class="screen screen--center" aria-labelledby="start-title">
-        <img
-          class="flair"
-          src="src/images/rainbow-living-shoreline.jpg"
-          alt="Rainbow over Penniman Spit Living Shoreline"
-        />
-        <h1 id="start-title">The Vims.edu Alt Text Quiz</h1>
+        <!-- Decorative flair — practicing what the quiz preaches: no takeaway, empty alt. -->
+        <img class="flair" src="src/images/rainbow-living-shoreline.jpg" alt="" />
+        <h1 id="start-title">The VIMS.edu Alt Text Quiz</h1>
         <p class="lede">
           Good alt text makes images work for everyone. Test your instincts on real
           examples from the VIMS.edu website.
@@ -89,7 +86,7 @@
 
         <h2 id="q-prompt" class="q-prompt"></h2>
 
-        <form id="answer-form" onsubmit="return false;">
+        <form id="answer-form">
           <fieldset class="q-options-fieldset">
             <legend class="sr-only">Choose the best alt text</legend>
             <div id="q-options" class="q-options"></div>
@@ -100,6 +97,7 @@
             class="feedback"
             role="region"
             aria-label="Answer feedback"
+            tabindex="-1"
             hidden
           ></div>
 
@@ -108,7 +106,7 @@
               ← Back
             </button>
             <span class="q-actions-spacer"></span>
-            <button id="submit-btn" class="btn btn--primary" type="button" disabled>
+            <button id="submit-btn" class="btn btn--primary" type="submit" disabled>
               Submit answer
             </button>
             <button id="next-btn" class="btn btn--primary" type="button" hidden>
@@ -120,11 +118,8 @@
 
       <!-- 4. Results -------------------------------------------------------- -->
       <section id="screen-results" class="screen screen--center" aria-labelledby="results-title" hidden>
-        <img
-          class="flair flair--high"
-          src="src/images/graduating-class-2026.jpg"
-          alt="Batten School & VIMS Spring 2026 Graduating Class"
-        />
+        <!-- Decorative flair — no takeaway, empty alt. -->
+        <img class="flair flair--high" src="src/images/graduating-class-2026.jpg" alt="" />
         <h2 id="results-title">Your results</h2>
         <p class="final-score" id="final-score"></p>
         <p id="results-message" class="results-message"></p>

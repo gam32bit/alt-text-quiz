@@ -199,12 +199,6 @@ h3 {
 .primer-body ul {
   padding-left: 1.2rem;
 }
-.primer-body code {
-  background: var(--white);
-  border: 1px solid var(--silver);
-  border-radius: 4px;
-  padding: 0 0.3em;
-}
 
 /* --- Question ------------------------------------------------------------ */
 .progress {
@@ -218,6 +212,8 @@ h3 {
 
 .q-figure {
   margin: 0 0 1rem;
+  /* Reserve space so the card doesn't jump while each screenshot loads. */
+  min-height: 200px;
 }
 .q-figure img {
   display: block;
@@ -228,14 +224,6 @@ h3 {
   border-radius: 6px;
   background: var(--white);
 }
-.q-caption {
-  font-size: 0.9rem;
-  color: var(--silver-dark);
-  font-style: italic;
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
 .q-prompt {
   font-size: 1.25rem;
 }

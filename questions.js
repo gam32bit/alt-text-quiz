@@ -30,7 +30,7 @@ const QUESTIONS = [
     screenshotAlt:
       "Screenshot of a VIMS web page section titled “Programs for College Students,” followed by a paragraph of body text about research-experience programs. The question asks about the group photo at the top of the section.",
     prompt:
-      "This photo appears on the Outreach & Education page and shows REU interns with their certificates. What is the best alt text?",
+      "This group photo appears in the “Programs for College Students” section of the Outreach & Education page. What is the best alt text?",
     options: [
       { text: "A group of college students posing for a photo indoors" },
       {
@@ -42,7 +42,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      “Any description here beats nothing. But ask what a sighted person actually takes away: a milestone moment — specific people, specific achievement, identifiable place. Most options here capture something real; the best answer is the one that names all three (REU interns, certificates, location) instead of stopping at the visible surface. This is why we say context matters.”,
+      "Any description here beats nothing. But ask what a sighted person actually takes away: a milestone moment — specific people, specific achievement, identifiable place. Most options here capture something real; the best answer is the one that names all three (REU interns, certificates, location) instead of stopping at the visible surface. This is why we say context matters.",
   },
   {
     image: "src/images/tidewatch-legend.png",
@@ -57,7 +57,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      “The swatch gets an empty alt — but not because color never matters. A sighted person’s takeaway from this dot is just “that’s the observed series marker” — and the “Observed” label right beside it already gives them that. The color only means anything together with the chart, and the chart’s real fix is providing its data separately (see the map and SAV questions). No independent takeaway → empty alt.”,
+      "The swatch gets an empty alt — but not because color never matters. A sighted person’s takeaway from this dot is just “that’s the observed series marker” — and the “Observed” label right beside it already gives them that. The color only means anything together with the chart, and the chart’s real fix is providing its data separately (see the map and SAV questions). No independent takeaway → empty alt.",
   },
   {
     image: "src/images/american-shad.png",
@@ -105,7 +105,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      “Empty alt. A sighted person glancing at this icon takes away “there's a fish here” — but the “Natural Resources” heading right beside it already supplies the meaningful takeaway. The icon is interchangeable ornament; swapping it for a different icon wouldn't change anything a reader learns. (Contrast the American shad illustration, which IS the content. Same “a fish,” opposite answer, because one is decoration and the other is the point of the page.) Writing “Natural Resources” as the alt would just make a screen reader say it twice.”,
+      "Empty alt. A sighted person glancing at this icon takes away “there's a fish here” — but the “Natural Resources” heading right beside it already supplies the meaningful takeaway. The icon is interchangeable ornament; swapping it for a different icon wouldn't change anything a reader learns. (Contrast the American shad illustration, which IS the content. Same “a fish,” opposite answer, because one is decoration and the other is the point of the page.) Writing “Natural Resources” as the alt would just make a screen reader say it twice.",
   },
   {
     image: "src/images/bottom-oxygen-map.png",
@@ -123,7 +123,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      “A map has no perfect short answer, so two things matter. First, summarize the takeaway (where the low-oxygen water is) rather than what the map looks like — a reader who can't see the chart needs to know what it shows, not what colors it uses. Second, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does both.”,
+      "A map has no perfect short answer, so two things matter. First, summarize the takeaway (where the low-oxygen water is) rather than what the map looks like — a reader who can't see the chart needs to know what it shows, not what colors it uses. Second, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does both.",
   },
   {
     image: "src/images/sav-coverage-chart.png",
@@ -141,7 +141,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      “Same idea as the oxygen map. Summarize what the chart shows — a general rise since 1980, still short of the goal — rather than describing what it looks like or just naming the dataset. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.”,
+      "Same idea as the oxygen map. Summarize what the chart shows — a general rise since 1980, still short of the goal — rather than describing what it looks like or just naming the dataset. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.",
   },
   {
     image: "src/images/marine-life-day.png",
@@ -158,7 +158,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      “Ask what a sighted person takes away: visitors engaged with science at a specific public event. That’s the meaning the photo communicates, and the alt text has to convey it. “People at tables” is technically true but throws away everything that makes the photo worth including. Naming Marine Life Day and what the visitors are doing is the relevant context.”,
+      "Ask what a sighted person takes away: visitors engaged with science at a specific public event. That’s the meaning the photo communicates, and the alt text has to convey it. “People at tables” is technically true but throws away everything that makes the photo worth including. Naming Marine Life Day and what the visitors are doing is the relevant context.",
   },
   {
     image: "src/images/marine-science-day-crab.png",
@@ -173,7 +173,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      “A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t programmatically tied to the image and it serves a different purpose. The rule is the same as always: describe what a sighted person would take away. A caption nearby doesn’t change what the image communicates on its own.”,
+      "A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t programmatically tied to the image and it serves a different purpose. The rule is the same as always: describe what a sighted person would take away. A caption nearby doesn’t change what the image communicates on its own.",
   },
   {
     image: "src/images/oyster-spat.png",
@@ -194,6 +194,6 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      “Aim for the middle. The shortest options are a start but leave out the actual subject; the paragraph-length version is thorough but over-describes details that don’t change what a reader learns. Identify the subject concisely with the relevant context — oyster spat at the Aquaculture Genetics & Breeding Technology Center — and stop there.”,
+      "Aim for the middle. The shortest options are a start but leave out the actual subject; the paragraph-length version is thorough but over-describes details that don’t change what a reader learns. Identify the subject concisely with the relevant context — oyster spat at the Aquaculture Genetics & Breeding Technology Center — and stop there.",
   },
 ];
