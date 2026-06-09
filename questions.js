@@ -13,13 +13,13 @@
  * The string "(no alt text — mark the image decorative)" is used as a visible option
  * label for cases where the correct move is an empty alt / decorative image.
  *
- * The one rule the whole quiz turns on (W3C WAI alt decision tree):
- *   Does the image carry information the user doesn't already have in REAL text?
- *     - No  -> empty alt (decorative / redundant).
- *     - Yes -> describe it, concisely.
- *   A nearby CAPTION does not count as that text — it isn't programmatically tied to
- *   the image, so a captioned photo still needs alt.
- *   Complex images (charts, maps) -> a short summary PLUS the data offered another way.
+ * The one rule the whole quiz turns on:
+ *   What is the key takeaway that a sighted person would get from this image?
+ *     - No takeaway (decoration, or icon/label already in nearby text) -> empty alt.
+ *     - There is a takeaway -> describe it, concisely.
+ *   A nearby CAPTION does not replace alt text — it isn't programmatically tied to
+ *   the image, so a captioned photo still needs its own alt.
+ *   Complex images (charts, maps) -> summarize the takeaway PLUS offer the data another way.
  */
 
 const DECORATIVE = "(no alt text — mark the image decorative)";
@@ -30,19 +30,19 @@ const QUESTIONS = [
     screenshotAlt:
       "Screenshot of a VIMS web page section titled “Programs for College Students,” followed by a paragraph of body text about research-experience programs. The question asks about the group photo at the top of the section.",
     prompt:
-      "This photo appears on a page about the Research Experiences for Undergraduates (REU) program and shows interns receiving their certificates. What is the best alt text?",
+      "This photo appears on the Outreach & Education page and shows REU interns with their certificates. What is the best alt text?",
     options: [
       { text: "A group of college students posing for a photo indoors" },
       {
         text:
-          "REU interns receive their certificates at the Batten School & VIMS visitor center",
+          "REU interns pose with their certificates at the Batten School & VIMS visitor center",
       },
-      { text: "Eleven people in business-casual clothes standing in two rows" },
-      { text: "Summer students at a marine laboratory" },
+      { text: "Twelve people in business-casual clothes standing in two rows" },
+      { text: "Students" },
     ],
     correctIndex: 1,
     explanation:
-      "The photo carries information that isn’t in the nearby text — who these people are and what milestone this is — so the alt has to supply it. The best answer keeps the details that matter (REU interns, the certificates, the location). “A group of college students” is too generic, the head-count description fixates on pixels instead of meaning, and “summer students at a marine laboratory” drops the specific context. This is why we say context matters.",
+      “Any description here beats nothing. But ask what a sighted person actually takes away: a milestone moment — specific people, specific achievement, identifiable place. Most options here capture something real; the best answer is the one that names all three (REU interns, certificates, location) instead of stopping at the visible surface. This is why we say context matters.”,
   },
   {
     image: "src/images/tidewatch-legend.png",
@@ -57,7 +57,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "The swatch gets an empty alt — but not because color never matters. It’s redundant: the “Observed” label right beside it already names the series, and the color only means anything together with the chart. And the chart is a complex image whose real fix is providing its data separately (see the map and SAV questions). So the swatch itself adds nothing on its own → empty alt.",
+      “The swatch gets an empty alt — but not because color never matters. A sighted person’s takeaway from this dot is just “that’s the observed series marker” — and the “Observed” label right beside it already gives them that. The color only means anything together with the chart, and the chart’s real fix is providing its data separately (see the map and SAV questions). No independent takeaway → empty alt.”,
   },
   {
     image: "src/images/american-shad.png",
@@ -105,7 +105,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Empty alt. This is the clean decorative case: the icon is interchangeable ornament sitting next to the “Natural Resources” heading, which already carries the meaning — so the icon adds nothing. (Contrast the American shad illustration, which IS the content. Same “a fish,” opposite answer, because one is decoration and the other is information.) Writing “Natural Resources” as the alt would just make a screen reader say it twice.",
+      “Empty alt. A sighted person glancing at this icon takes away “there's a fish here” — but the “Natural Resources” heading right beside it already supplies the meaningful takeaway. The icon is interchangeable ornament; swapping it for a different icon wouldn't change anything a reader learns. (Contrast the American shad illustration, which IS the content. Same “a fish,” opposite answer, because one is decoration and the other is the point of the page.) Writing “Natural Resources” as the alt would just make a screen reader say it twice.”,
   },
   {
     image: "src/images/bottom-oxygen-map.png",
@@ -123,7 +123,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "A map has no perfect short answer, so two things matter. First, summarize the takeaway (where the low-oxygen water is), not the pixels — the “red to blue” option describes how it looks, not what it means. Second, a title alone (“Bottom-oxygen forecast…”) names the image but conveys nothing; real accessibility means giving people the underlying data another way, such as a table or download. The best answer does both.",
+      “A map has no perfect short answer, so two things matter. First, summarize the takeaway (where the low-oxygen water is) rather than what the map looks like — a reader who can't see the chart needs to know what it shows, not what colors it uses. Second, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does both.”,
   },
   {
     image: "src/images/sav-coverage-chart.png",
@@ -141,7 +141,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Same idea as the oxygen map. Summarize what the chart shows — a general rise since 1980, still short of the goal — rather than its shape (“jagged line”) or just its title. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.",
+      “Same idea as the oxygen map. Summarize what the chart shows — a general rise since 1980, still short of the goal — rather than describing what it looks like or just naming the dataset. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.”,
   },
   {
     image: "src/images/marine-life-day.png",
@@ -158,7 +158,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "Meaningful content, so describe it — and the meaning is the event and the activity, which aren’t in the nearby text. “People at tables” is technically true but throws away everything that makes the photo worth including. Naming Marine Life Day and what the visitors are doing is the relevant context.",
+      “Ask what a sighted person takes away: visitors engaged with science at a specific public event. That’s the meaning the photo communicates, and the alt text has to convey it. “People at tables” is technically true but throws away everything that makes the photo worth including. Naming Marine Life Day and what the visitors are doing is the relevant context.”,
   },
   {
     image: "src/images/marine-science-day-crab.png",
@@ -173,7 +173,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "A caption is NOT a substitute for alt text — that’s settled guidance, not a preference. A caption is ordinary page text: it isn’t programmatically tied to the image and it serves a different purpose. So a meaningful photo still needs its own concise description with the relevant context. (This is the flip side of the decorative icon: the icon truly adds nothing beyond its heading, but a real photo isn’t “covered” just because a caption sits near it.)",
+      “A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t programmatically tied to the image and it serves a different purpose. The rule is the same as always: describe what a sighted person would take away. A caption nearby doesn’t change what the image communicates on its own.”,
   },
   {
     image: "src/images/oyster-spat.png",
@@ -194,6 +194,6 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "Aim for the middle. “Hand” misses the actual subject (the oyster spat and the breeding program), while the paragraph-length version over-describes details that don’t matter. Identify the subject concisely with the relevant context — oyster spat at the Aquaculture Genetics & Breeding Technology Center — and stop there.",
+      “Aim for the middle. The shortest options are a start but leave out the actual subject; the paragraph-length version is thorough but over-describes details that don’t change what a reader learns. Identify the subject concisely with the relevant context — oyster spat at the Aquaculture Genetics & Breeding Technology Center — and stop there.”,
   },
 ];

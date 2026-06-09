@@ -121,7 +121,7 @@
       }
     });
 
-    const heading = isCorrect ? "✓ Correct" : "✗ Not quite";
+    const heading = isCorrect ? "✓ Correct" : "Good start";
     els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
     els.feedback.innerHTML =
       '<p class="feedback-heading">' + heading + "</p>" +
@@ -135,7 +135,7 @@
 
     if (announce) {
       els.liveRegion.textContent =
-        (isCorrect ? "Correct. " : "Not quite. ") + q.explanation;
+        (isCorrect ? "Correct. " : "Good start. ") + q.explanation;
       els.nextBtn.focus();
     }
   }

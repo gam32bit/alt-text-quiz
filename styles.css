@@ -10,8 +10,8 @@
   --white: #ffffff;
   --correct: #1d6b3a;
   --correct-bg: #e7f4ec;
-  --wrong: #8a1f1f;
-  --wrong-bg: #fbeaea;
+  --wrong: #7a5500;
+  --wrong-bg: #fef8e7;
   --radius: 10px;
   --shadow: 0 2px 10px rgba(0, 59, 92, 0.12);
 }
@@ -297,7 +297,7 @@ h3 {
   background: var(--wrong-bg);
 }
 .option.is-wrong .option-text::after {
-  content: " ✗ your choice";
+  content: " ← your choice";
   font-weight: 700;
   color: var(--wrong);
 }
