@@ -56,6 +56,11 @@
     els.image.alt = q.screenshotAlt;
     els.prompt.textContent = q.prompt;
 
+    // Warm the cache for the next screenshot so advancing feels instant.
+    if (QUESTIONS[i + 1]) {
+      new Image().src = QUESTIONS[i + 1].image;
+    }
+
     // Build radio options.
     els.optionsForm.innerHTML = "";
     q.options.forEach(function (opt, idx) {
@@ -121,7 +126,7 @@
       }
     });
 
-    const heading = isCorrect ? "✓ Correct" : "Good start";
+    const heading = isCorrect ? "✓ Correct" : "✗ Not quite";
     els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
     els.feedback.innerHTML =
       '<p class="feedback-heading">' + heading + "</p>" +
@@ -134,9 +139,10 @@
       i === QUESTIONS.length - 1 ? "See results" : "Next question";
 
     if (announce) {
-      els.liveRegion.textContent =
-        (isCorrect ? "Correct. " : "Good start. ") + q.explanation;
-      els.nextBtn.focus();
+      // Focus the feedback region so screen readers read it in full; pushing
+      // the explanation through the live region while moving focus elsewhere
+      // would cut the announcement off.
+      els.feedback.focus();
     }
   }
 
@@ -215,6 +221,7 @@
   function startQuiz() {
     state.currentIndex = 0;
     state.answers = [];
+    els.shareStatus.textContent = "";
     renderQuestion();
     showScreen("question");
     focusPrompt();
@@ -251,7 +258,11 @@
   });
   document.getElementById("begin-btn").addEventListener("click", startQuiz);
   els.backBtn.addEventListener("click", back);
-  els.submitBtn.addEventListener("click", submitAnswer);
+  // Submit via the button or by pressing Enter anywhere in the form.
+  document.getElementById("answer-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    submitAnswer();
+  });
   els.nextBtn.addEventListener("click", next);
   els.shareBtn.addEventListener("click", shareQuiz);
   document.getElementById("restart-btn").addEventListener("click", startQuiz);
