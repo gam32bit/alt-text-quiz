@@ -185,7 +185,7 @@ const QUESTIONS = [
       },
       {
         text:
-          "Low-oxygen waters concentrate in the inner, northern Bay and improve toward the ocean — full data in the table below",
+          "Map showing low-oxygen waters concentrated in the inner, northern Bay, improving toward the ocean — full data in the table below",
       },
       {
         text: "Map of the Chesapeake Bay",
@@ -195,12 +195,12 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "A map has no perfect short answer, so two things matter. First, summarize the takeaway (where the low-oxygen water is) rather than what the map looks like — a reader who can't see the chart needs to know what it shows, not what colors it uses. Second, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does both.",
+      "A map has no perfect short answer, so a few things matter. Say it’s a map — naming the image type orients the reader before the details arrive. Then summarize the takeaway (where the low-oxygen water is) rather than what the map looks like; the type alone, as in “Map of the Chesapeake Bay,” isn’t enough. Finally, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does all three.",
   },
   {
     image: "src/images/sav-coverage-chart.png",
     screenshotAlt:
-      "Screenshot of a line/area chart showing submerged aquatic vegetation (SAV) coverage in the Chesapeake Bay in hectares, with years from 1980 to the present along the x-axis and a horizontal line marking a goal of 74,821 hectares. The shaded area trends generally upward across the period. The question asks what alt text best serves this chart.",
+      "Screenshot of a line/area chart showing submerged aquatic vegetation (SAV) coverage in the Chesapeake Bay in hectares, with years from 1980 to the present along the x-axis and a horizontal line marking a goal of 74,821 hectares. The question asks what alt text best serves this chart.",
     prompt: "What is the best alt text for this chart?",
     options: [
       {
@@ -215,7 +215,7 @@ const QUESTIONS = [
       },
       {
         text:
-          "Bay underwater-grass (SAV) coverage has generally risen since 1980 but is still below the 74,821-hectare goal — see the data table for values",
+          "Chart showing Bay underwater-grass (SAV) coverage generally rising since 1980 but still below the 74,821-hectare goal — see the data table for values",
       },
       {
         text: "A line graph of SAV over time",
@@ -225,7 +225,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Same idea as the oxygen map. Summarize what the chart shows — a general rise since 1980, still short of the goal — rather than describing what it looks like or just naming the dataset. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.",
+      "Same idea as the oxygen map. Name the image type (“chart”) to orient the reader, then summarize what it shows — a general rise since 1980, still short of the goal — rather than describing what it looks like. But the type alone isn’t enough: “A line graph of SAV over time” names the chart without conveying anything it says. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.",
   },
   {
     image: "src/images/marine-life-day.png",
@@ -260,7 +260,8 @@ const QUESTIONS = [
     image: "src/images/marine-science-day-crab.png",
     screenshotAlt:
       "Screenshot of a news article about Marine Science Day. It shows a photo of a young child smiling and holding up a small crab, and directly below the photo is a visible caption that reads “James, a young Marine Science Day attendee, holding a blue crab. Photo by Ethan Smith.” The question asks what alt text the photo should have, given that caption.",
-    prompt: "This photo has a visible caption on the page (you can see it in the screenshot). What is the best alt text?",
+    prompt:
+      "This photo of a boy holding a crab appears in a news article, with a visible caption directly below it. What is the best alt text?",
     options: [
       {
         text: DECORATIVE,
