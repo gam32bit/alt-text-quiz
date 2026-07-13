@@ -24,8 +24,9 @@ server avoids any browser file:// quirks: `python3 -m http.server` then visit
 All questions live in `questions.js` as the `QUESTIONS` array. Each item has the image
 path, the screenshot's own alt text (`screenshotAlt` — page context, written so it doesn't
 give the answer away), the `prompt`, the answer `options`, the `correctIndex`, and the
-`explanation` shown after answering. Add, remove, or reword freely — the logic is fully
-data-driven.
+`explanation` shown after answering. Each non-best option can also carry a `note` — a short,
+option-specific reason it falls short, shown above the general explanation when the learner
+picks it. Add, remove, or reword freely — the logic is fully data-driven.
 
 Learners can move **Back** to revisit earlier questions (their previous answer and its
 feedback are preserved); Back is hidden on the first question. The results screen has a

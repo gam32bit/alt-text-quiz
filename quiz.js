@@ -126,10 +126,13 @@
       }
     });
 
-    const heading = isCorrect ? "✓ Correct" : "✗ Not quite";
+    const heading = isCorrect ? "✓ Best practice" : "Good start";
+    // Option-specific note for the choice the learner made (wrong answers only).
+    const note = !isCorrect ? q.options[selected].note : undefined;
     els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
     els.feedback.innerHTML =
       '<p class="feedback-heading">' + heading + "</p>" +
+      (note ? "<p>" + escapeHtml(note) + "</p>" : "") +
       "<p>" + escapeHtml(q.explanation) + "</p>";
     els.feedback.hidden = false;
 
