@@ -21,7 +21,8 @@
  *     - There is a takeaway -> describe it, concisely.
  *   A nearby CAPTION does not replace alt text — it isn't programmatically tied to
  *   the image, so a captioned photo still needs its own alt.
- *   Complex images (charts, maps) -> summarize the takeaway PLUS offer the data another way.
+ *   Complex images (charts, maps) -> summarize the takeaway; when feasible, also offer
+ *   the data another way.
  */
 
 const DECORATIVE = "(no alt text — mark the image decorative)";
@@ -165,7 +166,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Empty alt. A sighted person glancing at this icon takes away “there's a fish here” — but the “Natural Resources” heading right beside it already supplies the meaningful takeaway. The icon is interchangeable ornament. (Contrast the American shad illustration earlier, which IS the content. Same “a fish,” opposite answer, because one is decoration and the other is the point of the page.)",
+      "Empty alt. Try the removal test: if this icon vanished, the card would say exactly the same thing, because the “Natural Resources” heading carries all the meaning. That’s what “decorative” means here — not that the image is pretty, but that removing it costs the reader nothing. Contrast the American shad illustration earlier: remove that and the page loses its picture of the very species it’s about. Same “a fish,” opposite answers. (And to be clear about what an empty alt does: the screen reader simply skips the image — it doesn’t announce “decorative image.”)",
   },
   {
     image: "src/images/bottom-oxygen-map.png",
@@ -185,7 +186,7 @@ const QUESTIONS = [
       },
       {
         text:
-          "Map showing low-oxygen waters concentrated in the inner, northern Bay, improving toward the ocean — full data in the table below",
+          "Map showing low-oxygen waters concentrated in the inner, northern Bay, improving toward the ocean",
       },
       {
         text: "Map of the Chesapeake Bay",
@@ -195,7 +196,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "A map has no perfect short answer, so a few things matter. Say it’s a map — naming the image type orients the reader before the details arrive. Then summarize the takeaway (where the low-oxygen water is) rather than what the map looks like; the type alone, as in “Map of the Chesapeake Bay,” isn’t enough. Finally, real accessibility means giving people the underlying data another way, such as a table or download. The best answer does all three.",
+      "A map has no perfect short answer, so a few things matter. Say it’s a map — naming the image type orients the reader before the details arrive. Then summarize the takeaway (where the low-oxygen water is) rather than what the map looks like; the type alone, as in “Map of the Chesapeake Bay,” isn’t enough. The best answer does both. One more thing worth knowing: when it’s feasible to offer the underlying data another way — a table or a download — that’s the gold standard for a data map. When it isn’t, a clear summary of the takeaway is doing the real work.",
   },
   {
     image: "src/images/sav-coverage-chart.png",
@@ -215,7 +216,7 @@ const QUESTIONS = [
       },
       {
         text:
-          "Chart showing Bay underwater-grass (SAV) coverage generally rising since 1980 but still below the 74,821-hectare goal — see the data table for values",
+          "Chart showing Bay underwater-grass (SAV) coverage generally rising since 1980 but still below the 74,821-hectare goal",
       },
       {
         text: "A line graph of SAV over time",
@@ -225,7 +226,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Same idea as the oxygen map. Name the image type (“chart”) to orient the reader, then summarize what it shows — a general rise since 1980, still short of the goal — rather than describing what it looks like. But the type alone isn’t enough: “A line graph of SAV over time” names the chart without conveying anything it says. Then, because no sentence can replace a dataset, offer the numbers as a table or download. Charts and maps are the cases where alt text alone is never quite enough.",
+      "Same idea as the oxygen map. Name the image type (“chart”) to orient the reader, then summarize what it shows — a general rise since 1980, still short of the goal — rather than describing what it looks like. But the type alone isn’t enough: “A line graph of SAV over time” names the chart without conveying anything it says. And because no sentence can fully replace a dataset, offering the numbers another way (a table or download) is the gold standard when it’s feasible — charts and maps are the cases where a good summary carries the most weight.",
   },
   {
     image: "src/images/marine-life-day.png",
@@ -277,12 +278,12 @@ const QUESTIONS = [
       {
         text: "Child holding a crab",
         note:
-          "A solid start — but it drops the event context and the species, the details that tie the photo to the article.",
+          "A solid start, and with the caption right below it, not unreasonable — but the best answer ties the photo to the event and the species without leaning on text elsewhere on the page.",
       },
     ],
     correctIndex: 1,
     explanation:
-      "A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t programmatically tied to the image and it serves a different purpose. A caption nearby doesn’t change what the image communicates on its own.",
+      "A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t tied to the image in the code the way alt text is. Notice the best answer says nearly the same thing as the caption — that’s fine. The rule isn’t that alt text must be different from the caption; it’s that a caption alone can’t do the alt text’s job. (One subtlety: a screen reader reads the alt text and then the caption, so a user hears the information twice. That’s a far better problem than hearing nothing — but it’s why some writers shorten the alt when a full caption sits right below.)",
   },
   {
     image: "src/images/oyster-spat.png",
