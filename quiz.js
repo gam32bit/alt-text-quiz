@@ -221,7 +221,8 @@
     }
     els.resultsMsg.textContent = msg;
     els.liveRegion.textContent =
-      "Quiz complete. Your score is " + score + " out of " + total + ". " + msg;
+      "Quiz complete. You picked the best-practice answer on " + score + " of " +
+      total + " questions. " + msg;
 
     // Manage focus: #screen-question (which held focus) is now hidden, so move
     // focus into the results screen rather than letting it fall to <body>.

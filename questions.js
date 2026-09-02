@@ -10,10 +10,9 @@
  *                 `note` (optional) is shown when the learner picks that option and
  *                 it isn't the best one: a short, specific reason why it falls short.
  *   correctIndex  index of the best answer in options
- *   explanation   teaching feedback shown after answering
- *   cascadeNote   (optional) Cascade-specific footnote rendered below the explanation,
- *                 for the cases where our templates constrain what an editor can
- *                 actually do. Deliberately secondary — the quiz is for the whole
+ *   explanation   teaching feedback shown after answering. Keep it to two sentences.
+ *   cascadeNote   (optional) one sentence on how our Cascade templates constrain the
+ *                 choice. Rendered as a secondary aside — the quiz is for the whole
  *                 campus, not only the people working in Cascade.
  *
  * The string "(no alt text — mark the image decorative)" is used as a visible option
@@ -21,14 +20,12 @@
  *
  * The one rule the whole quiz turns on:
  *   What is the key takeaway that a sighted person would get from this image?
- *     - No takeaway (decoration, or icon/label already in nearby text) -> empty alt.
+ *     - No takeaway (purely aesthetic, or meaning already in nearby text) -> empty alt.
  *     - There is a takeaway -> describe it, concisely.
- *   A nearby CAPTION does not replace alt text — it isn't programmatically tied to
- *   the image, so a captioned photo still needs its own alt.
+ *   A CAPTION is visible page text and can carry names, credit and context; alt text is
+ *   what a screen reader gets. Provide both, and don't make them identical.
  *   Complex images (charts, maps) -> summarize the takeaway; when feasible, also offer
  *   the data another way — an accessible table, paragraph or download.
- *   Naming the image type ("map," "chart," "line drawing") helps when the type is
- *   itself information; "photo of" / "image of" never is.
  */
 
 const DECORATIVE = "(no alt text — mark the image decorative)";
@@ -47,8 +44,7 @@ const QUESTIONS = [
           "True as far as it goes, but it drops the specifics that make the photo meaningful — who these students are and what they’re celebrating.",
       },
       {
-        text:
-          "REU interns pose with their certificates at the Batten School & VIMS visitor center",
+        text: "REU interns pose with their certificates at the Batten School & VIMS visitor center",
       },
       {
         text: "Twelve people in business-casual clothes standing in two rows",
@@ -63,7 +59,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "Ask what a sighted person actually takes away: a milestone moment — specific people, specific achievement, identifiable place. The best answer names all three (REU interns, certificates, location) instead of stopping at the visible surface. This is why context matters.",
+      "Ask what a sighted person actually takes away: specific people, a specific achievement, an identifiable place. The best answer names all three instead of stopping at the visible surface.",
   },
   {
     image: "src/images/tidewatch-legend.png",
@@ -90,9 +86,9 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "The swatch gets an empty alt — but not because color never matters. A sighted person’s takeaway from this dot is just “that’s the observed series marker,” and the “Observed” label right beside it already gives them that. No independent takeaway → empty alt.",
+      "The dot carries no meaning the “Observed” label beside it doesn’t already give. No independent takeaway, so the alt is empty.",
     cascadeNote:
-      "Deciding an image is decorative and being able to act on it are two different things. Some of our templates require an Image Description, so you can’t always leave the field empty even when empty is the right answer. Make the judgment anyway, put the least redundant thing you can in the field, and tell the web team which template is forcing your hand — that’s a template fix, not a writing problem.",
+      "Cascade requires alt text in the “Display Name” field, so leaving it empty isn’t always an option.",
   },
   {
     image: "src/images/american-shad.png",
@@ -104,23 +100,23 @@ const QUESTIONS = [
         text:
           "A detailed black-and-white side-profile illustration of a fish with a forked tail, pointed snout, and a row of small spots along the upper body, facing left",
         note:
-          "Thorough, but the anatomical detail belongs in the body text — alt text this long is a chore to listen to and doesn’t add meaning.",
+          "This level of detail isn’t necessary to meet alt text compliance — the anatomy belongs in the body text.",
       },
       {
         text: "American shad",
         note:
-          "Close, and defensible. But the page is already headed “American shad,” so this alt mostly repeats the title — a reader hears the species name twice and still doesn’t learn the page holds a drawing of it.",
+          "Close, but the page is already headed “American shad,” so this repeats the title without telling the reader a drawing of the species is there.",
       },
       { text: "Scientific line drawing of an American shad" },
       {
         text: DECORATIVE,
         note:
-          "A serious answer, and the reasoning behind it is sound: the page title already names the species, so the alt looks redundant. What the image adds isn’t the name, though — it’s what the species looks like. Mark it decorative and a screen-reader user never learns the illustration is there at all.",
+          "Defensible — the title already names the species. But what the image adds isn’t the name, it’s the shape, and marking it decorative hides that entirely.",
       },
     ],
     correctIndex: 2,
     explanation:
-      "It’s content, not ornament — and naming what kind of image it is does real work here. The case against alt text is a good one: the page is headed “American shad,” so why describe the picture? Because the takeaway isn’t the species’ name, it’s the species’ shape, and a title can’t carry that. Calling it a scientific line drawing also sets the right expectation — an identification illustration, not a photograph. That’s the test for naming an image type: do it when the type is itself information (map, chart, line drawing), skip it when it’s just “photo of” or “image of.” Leave the anatomy to the body text.",
+      "The takeaway isn’t the species’ name, which the page title already gives — it’s what the species looks like. Naming the image type earns its keep here: “line drawing” sets a different expectation than a photograph.",
   },
   {
     image: "src/images/directory-headshot.png",
@@ -142,14 +138,14 @@ const QUESTIONS = [
       {
         text: DECORATIVE,
         note:
-          "Good instinct — and on the merits, arguably the right one. The name is right there as the page title, so there’s a real case that the photo adds nothing. Our directory templates just don’t offer that choice, which is why the name is what we advise here.",
+          "Good instinct — W&M’s Digital Accessibility Office advises exactly this for directory pages, since the name is already the page title. Our templates just don’t offer it.",
       },
     ],
     correctIndex: 1,
     explanation:
-      "Two things going on. First: don’t start alt text with “Headshot of,” “Image of,” or “Photo of” — a screen reader already announces it’s an image, so those words are wasted. (Naming the image type earns its keep only when the type is information, the way “line drawing” did on the shad page.) Second, the honest version of this answer: on a directory page the person’s name is already the adjacent page title, so there’s a strong argument the headshot is decorative. Where that option is on the table, take it. Where it isn’t, the name is the right fallback — accurate, brief, and it costs a listener almost nothing.",
+      "Skip “Headshot of,” “Image of,” and “Photo of” — a screen reader already announces it’s an image. On a directory page the person’s name is the information the reader needs.",
     cascadeNote:
-      "This is the clearest case of a template making the decision for you. Filza advises treating a directory headshot as decorative, precisely because the name is already the page title beside it. But directory images can’t be marked decorative in our templates, so in this specific scenario we advise using the person’s name.",
+      "Directory images can’t be marked decorative in our templates, so we advise using the person’s name.",
   },
   {
     image: "src/images/natural-resources-icon.png",
@@ -176,9 +172,8 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Empty alt. Try the removal test: if this icon vanished, the card would say exactly the same thing, because the “Natural Resources” heading carries all the meaning. That’s what “decorative” means here — not that the image is pretty, but that removing it costs the reader nothing. Contrast the American shad illustration earlier: remove that and the page loses its picture of the very species it’s about. Two pictures of a fish, opposite calls — what separates them is whether anything goes missing when the image does. (And to be clear about what an empty alt does: the screen reader simply skips the image — it doesn’t announce “decorative image.”)",
-    cascadeNote:
-      "Whether this icon is decorative isn’t the editor’s call in our templates — the template decides. Worth knowing so you don’t go hunting for a field that isn’t there. If you find one of these marked up the wrong way, that’s a note for the web team rather than something to write around.",
+      "Try the removal test: if this icon vanished, the card would say exactly the same thing, because the heading carries all the meaning. Contrast the shad drawing, where removing the image loses the one thing the page can’t say in words.",
+    cascadeNote: "Our templates control this icon’s alt text — it isn’t the editor’s call.",
   },
   {
     image: "src/images/bottom-oxygen-map.png",
@@ -208,9 +203,9 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "A map has no perfect short answer, so a few things matter. Say it’s a map — naming the image type orients the reader before the details arrive. Then summarize the takeaway (where the low-oxygen water is) rather than what the map looks like; the type alone, as in “Map of the Chesapeake Bay,” isn’t enough. The best answer does both. One more thing worth knowing: when it’s feasible to offer the underlying data another way — an accessible table, paragraph or download — that’s the gold standard for a data map. “Accessible” is carrying weight in that sentence: a table only helps if it’s built as a real data table with header cells, and a download only helps if the file itself is accessible. Neither is accessible just by existing. When none of that is feasible, a clear summary of the takeaway is doing the real work.",
+      "Name the image type to orient the reader, then summarize the takeaway — where the low-oxygen water is — rather than what the map looks like. When it’s feasible, offering the underlying data another way is the gold standard for a data map.",
     cascadeNote:
-      "The body content area below the image is usually where that alternative goes. A short paragraph giving the same numbers is the most reliably accessible option available to you, and the easiest to keep current — no table markup to get right, no file to re-export.",
+      "The body content below the map is where that data usually goes — a short paragraph of the same numbers.",
   },
   {
     image: "src/images/sav-coverage-chart.png",
@@ -240,22 +235,21 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Same idea as the oxygen map. Name the image type (“chart”) to orient the reader, then summarize what it shows — a general rise since 1980, still short of the goal — rather than describing what it looks like. But the type alone isn’t enough: “A line graph of SAV over time” names the chart without conveying anything it says. And because no sentence can fully replace a dataset, offering the numbers another way — an accessible table, paragraph or download — is the gold standard when it’s feasible, with the same caveat as the map: the alternative only counts if it’s accessible in its own right. Charts and maps are the cases where a good summary carries the most weight.",
+      "Same idea as the map: name the type, then say what it shows — a general rise since 1980, still short of the goal. No sentence fully replaces a dataset, so offer the numbers another way when you can.",
   },
   {
     image: "src/images/marine-life-day.png",
     screenshotAlt:
       "Screenshot of a “For the Public” page section: a photo of several people seated at a table looking into microscopes at an event, above body text about VIMS public programs. The question asks what alt text the photo should have.",
-    prompt: "This photo, from VIMS Marine Life Day, shows visitors using microscopes. What is the best alt text?",
+    prompt:
+      "This photo, from VIMS Marine Life Day, shows visitors using microscopes. What is the best alt text?",
     options: [
       {
         text: "People at tables",
         note:
           "Technically true, but it throws away everything that makes the photo worth including — the science, the event, the engagement.",
       },
-      {
-        text: "Visitors examine specimens under microscopes at VIMS Marine Life Day",
-      },
+      { text: "Visitors examine specimens under microscopes at VIMS Marine Life Day" },
       {
         text: "A woman looking into a microscope",
         note:
@@ -269,7 +263,7 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "Ask what a sighted person takes away: visitors engaged with science at a specific public event. That’s the meaning the photo communicates, and the alt text has to convey it. Naming Marine Life Day and what the visitors are doing is the relevant context.",
+      "What a sighted person takes away is visitors doing hands-on science at a specific public event. Naming the event and the activity is the context that matters.",
   },
   {
     image: "src/images/marine-science-day-crab.png",
@@ -281,25 +275,24 @@ const QUESTIONS = [
       {
         text: DECORATIVE,
         note:
-          "A visible caption doesn’t make the image decorative — a caption is ordinary page text and isn’t programmatically tied to the image the way alt text is.",
+          "A visible caption doesn’t make an image decorative — a caption is ordinary page text, not the image’s alternative.",
       },
-      { text: "A young Marine Science Day attendee holds up a blue crab" },
+      {
+        text: "A young Marine Science Day attendee holds up a blue crab",
+        note:
+          "Nearly word-for-word the caption below it, so a screen-reader user hears the same sentence twice.",
+      },
       {
         text: "A boy smiling",
-        note:
-          "This misses the moment the photo captures — the crab, the event, the delight of holding it.",
+        note: "This misses the crab, which is the reason the photo is on the page.",
       },
-      {
-        text: "Child holding a crab",
-        note:
-          "A solid start, and with the caption right below it, not unreasonable — but the best answer ties the photo to the event and the species without leaning on text elsewhere on the page.",
-      },
+      { text: "A grinning boy holds up a blue crab" },
     ],
-    correctIndex: 1,
+    correctIndex: 3,
     explanation:
-      "A sighted person gets a clear takeaway from this photo — a young attendee’s delight at holding a blue crab — and that takeaway still needs alt text even though a caption is visible on the page. A caption is ordinary page text: it isn’t tied to the image in the code the way alt text is. Notice the best answer says nearly the same thing as the caption — that’s fine. The rule isn’t that alt text must be different from the caption; it’s that a caption alone can’t do the alt text’s job. (One subtlety: a screen reader reads the alt text and then the caption, so a user hears the information twice. That’s a far better problem than hearing nothing — but it’s why some writers shorten the alt when a full caption sits right below.)",
+      "The caption already supplies his name, the event and the photo credit, so the alt covers what the picture actually shows. Alt text and a caption should work together, not repeat each other word for word.",
     cascadeNote:
-      "Our main content templates work differently from the example above: there, the Image Description field feeds both the alt text and the visible caption, so a single string has to do both jobs. Two practical consequences — write it as a sentence that reads well on the page, since it may be shown, and keep photo credit out of it, since a credit line is noise to a screen-reader user.",
+      "In our main content area the Image Description field is both the alt text and the visible caption.",
   },
   {
     image: "src/images/oyster-spat.png",
@@ -330,6 +323,6 @@ const QUESTIONS = [
     ],
     correctIndex: 1,
     explanation:
-      "Aim for the middle. The shortest options leave out the actual subject; the paragraph-length version is thorough but over-describes. Identify the subject concisely with the relevant context — oyster spat at the Aquaculture Genetics & Breeding Technology Center — and stop there.",
+      "Aim for the middle: the shortest options leave out the subject, and the paragraph-length one over-describes. Identify the subject concisely with the context that matters, then stop.",
   },
 ];
