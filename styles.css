@@ -180,6 +180,37 @@ h3 {
   background: var(--vims-blue-light);
 }
 
+/* Debatability note on the intro screen — quiet, distinct from the Cascade callout. */
+.caveat {
+  margin: 1.25rem 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid var(--silver-dark);
+  background: var(--white);
+  border-radius: 0 6px 6px 0;
+  font-size: 0.92rem;
+}
+
+/* Cascade-only guidance inside the primer — tinted so it reads as an aside. */
+.cms-note {
+  margin: 0.75rem 0 0.25rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--vims-blue-light);
+  border: 1px solid var(--silver);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+.cms-note-label {
+  margin: 0 0 0.2rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vims-blue);
+}
+.cms-note p:last-child {
+  margin-bottom: 0;
+}
+
 /* --- Intro primer -------------------------------------------------------- */
 .primer {
   background: var(--vims-blue-light);
@@ -356,6 +387,11 @@ h3 {
   font-weight: 800;
   color: var(--vims-blue);
   margin: 0.5rem 0;
+}
+.score-label {
+  margin: -0.35rem 0 1rem;
+  font-size: 0.95rem;
+  color: var(--ink);
 }
 .results-message {
   font-size: 1.1rem;
