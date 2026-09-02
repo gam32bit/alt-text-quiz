@@ -130,10 +130,19 @@
     // Option-specific note for the choice the learner made (wrong answers only).
     const note = !isCorrect ? q.options[selected].note : undefined;
     els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
+    // The Cascade note is a secondary aside: the lesson above it is platform-neutral,
+    // and most readers of this quiz don't work in Cascade at all.
+    const cascade = q.cascadeNote
+      ? '<div class="cascade-note">' +
+        '<p class="cascade-note-label">In Cascade</p>' +
+        "<p>" + escapeHtml(q.cascadeNote) + "</p>" +
+        "</div>"
+      : "";
     els.feedback.innerHTML =
       '<p class="feedback-heading">' + heading + "</p>" +
       (note ? "<p>" + escapeHtml(note) + "</p>" : "") +
-      "<p>" + escapeHtml(q.explanation) + "</p>";
+      "<p>" + escapeHtml(q.explanation) + "</p>" +
+      cascade;
     els.feedback.hidden = false;
 
     els.submitBtn.hidden = true;
