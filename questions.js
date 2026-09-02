@@ -292,7 +292,7 @@ const QUESTIONS = [
     explanation:
       "The caption already supplies his name, the event and the photo credit, so the alt covers what the picture actually shows. Alt text and a caption should work together, not repeat each other word for word.",
     cascadeNote:
-      "In our main content area the Image Description field is both the alt text and the visible caption.",
+      "The Image description you set when inserting an image fills both the caption and the alt text, so they’ll match here no matter what — and anything in that field, photo credit included, gets read aloud.",
   },
   {
     image: "src/images/oyster-spat.png",
