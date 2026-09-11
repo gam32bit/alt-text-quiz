@@ -34,6 +34,7 @@
     liveRegion: document.getElementById("live-region"),
     score: document.getElementById("final-score"),
     resultsMsg: document.getElementById("results-message"),
+    scoreLabel: document.getElementById("score-label"),
     shareBtn: document.getElementById("share-btn"),
     shareStatus: document.getElementById("share-status"),
   };
@@ -208,21 +209,16 @@
     const score = computeScore();
     els.score.textContent = score + " / " + total;
 
-    const pct = score / total;
-    let msg;
-    if (pct === 1) {
-      msg = "Perfect score — you’ve got a real feel for alt text. Go forth and describe.";
-    } else if (pct >= 0.7) {
-      msg = "Nicely done. You’ve got the core ideas down; skim the resources for the edge cases.";
-    } else if (pct >= 0.4) {
-      msg = "Good start. The resources below will fill in the gaps — context, conciseness, and when to leave it empty.";
-    } else {
-      msg = "Alt text is trickier than it looks. The resources below are a great place to build from.";
-    }
+    const label = score === 1 ? "best-practice answer" : "best-practice answers";
+    els.scoreLabel.textContent = label;
+
+    // Same encouragement at every score: the point is to keep practicing, not to rank.
+    const msg =
+      "Great job! Keep learning with the resources below, retake the quiz to keep " +
+      "practicing, or share the quiz with colleagues!";
     els.resultsMsg.textContent = msg;
     els.liveRegion.textContent =
-      "Quiz complete. You picked the best-practice answer on " + score + " of " +
-      total + " questions. " + msg;
+      "Quiz complete. " + score + " of " + total + " " + label + ". " + msg;
 
     // Manage focus: #screen-question (which held focus) is now hidden, so move
     // focus into the results screen rather than letting it fall to <body>.

@@ -34,9 +34,8 @@
         <h2 id="intro-title">How this works</h2>
         <p>
           You’ll see 10 real images from the VIMS.edu website, each shown in the context where
-          it appears. For each one, pick the alt text you think works best. After you answer,
-          we’ll explain why — including a few that are trickier than they look. You can go
-          back at any time to revisit your answers.
+          it appears. For each one, pick the alt text you think works best. After you
+          answer, we’ll explain why. You can go back at any time to revisit your answers.
         </p>
 
         <p class="caveat">
@@ -62,12 +61,13 @@
           <summary>New to alt text? Read this first (optional)</summary>
           <div class="primer-body">
             <p>
-              <strong>Alt text</strong> (alternative text) is a short written description of
-              an image, added in the page’s code. Screen readers read it aloud to people who
-              can’t see the image, and it appears if the image fails to load.
+              <strong>Alt text</strong> (alternative text) is a short written description
+              of an image. Screen readers read it aloud to people who can’t see the image,
+              and it appears if the image fails to load.
             </p>
             <p>
-              There’s really just <strong>one question</strong> to ask about any image:
+              There’s really just <strong>one question</strong> to ask about any image when
+              it comes to alt text:
               <em>what is the key takeaway that a sighted person would get from this image?</em>
             </p>
             <ul>
@@ -75,11 +75,7 @@
                 <strong>If there is no key takeaway — the image is purely decorative — the alt text can be left empty.</strong>
                 Decorative means purely aesthetic: background textures, borders, dividers,
                 generic stock graphics, and icons whose meaning is already carried by a
-                nearby heading or label. If an image carries information specific to the
-                subject, it isn’t decorative — a reader benefits from knowing it’s on the
-                page even if they can’t see it. And note what an empty alt actually does:
-                the screen reader skips the image entirely — it doesn’t announce
-                “decorative image” or anything else.
+                nearby heading or label.
                 <div class="cms-note">
                   <p class="cms-note-label">For Cascade users</p>
                   <p>
@@ -88,13 +84,12 @@
                   </p>
                 </div>
               </li>
-              <li><strong>Be concise.</strong> Convey the meaning, not every pixel. Skip “image of” / “photo of” — screen readers already say it’s an image. Do name the image <em>type</em> when the type is itself information: a map, a chart, or a scientific illustration each set a different expectation than a snapshot.</li>
+              <li><strong>Be concise.</strong> Convey the meaning, not every detail. Skip “image of” / “photo of” — screen readers already say it’s an image. Do name the image <em>type</em> when the type is itself information: a map, a chart, or a scientific illustration.</li>
               <li>
-                <strong>A caption is not alt text.</strong> A caption is visible page text,
+                <strong>A caption is not necessarily the same as alt text.</strong> A caption is visible page text,
                 and it’s a good place for names, photo credit, and context. Alt text is the
-                description a screen reader gets. Provide both — and don’t make them
-                word-for-word identical, or a screen-reader user hears the same sentence
-                twice.
+                description a screen reader gets. Often it’s a good idea to provide both, but keep in mind a
+                screen-reader user may hear both.
                 <div class="cms-note">
                   <p class="cms-note-label">For Cascade users</p>
                   <p>
@@ -158,7 +153,7 @@
         <img class="flair flair--high" src="src/images/graduating-class-2026.jpg" alt="" />
         <h2 id="results-title">Your results</h2>
         <p class="final-score" id="final-score"></p>
-        <p class="score-label">questions where you picked the best-practice answer</p>
+        <p class="score-label" id="score-label"></p>
         <p id="results-message" class="results-message"></p>
 
         <div class="results-learn">
