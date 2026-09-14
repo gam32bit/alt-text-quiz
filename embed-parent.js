@@ -6,11 +6,14 @@
  * and assign that format in the INCLUDES_EXTRA region on the quiz page's
  * Configure tab. The README has the full recipe.
  *
- * It does two things the iframe cannot do for itself:
+ * It does three things the iframe cannot do for itself:
  *   1. Sizes the iframe to the quiz's content, so the reader never gets a
  *      scrollbar inside a scrollbar.
  *   2. Scrolls the host page when the quiz asks it to — a cross-origin child
  *      cannot scroll its parent.
+ *   3. Tells the quiz which strip of its own document is currently on screen,
+ *      so the click-to-enlarge overlay can land in the reader's viewport
+ *      rather than in the middle of a very tall iframe.
  *
  * If this script is ever blocked or unpublished, the iframe falls back to its
  * height attribute and behaves exactly as it did before. Nothing breaks.
@@ -19,7 +22,7 @@
   "use strict";
 
   // Where the quiz is served from. Change this together with PARENT_ORIGIN in
-  // quiz.js if the quiz moves off GitHub Pages.
+  // quiz.js and enhance.js if the quiz moves off GitHub Pages.
   var QUIZ_ORIGIN = "https://gam32bit.github.io";
   var QUIZ_SRC_PREFIX = QUIZ_ORIGIN + "/alt-text-quiz";
 
@@ -37,6 +40,36 @@
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  function post(msg) {
+    if (!iframe.contentWindow) return;
+    iframe.contentWindow.postMessage(msg, QUIZ_ORIGIN);
+  }
+
+  // The visible strip of the iframe's document, in the iframe's own
+  // coordinates: where it starts and how tall it is.
+  function sendViewport() {
+    var rect = iframe.getBoundingClientRect();
+    var visibleTop = Math.max(0, -rect.top);
+    var visibleBottom = Math.min(rect.height, window.innerHeight - rect.top);
+    post({
+      type: "altquiz:viewport",
+      top: Math.round(visibleTop),
+      height: Math.round(Math.max(0, visibleBottom - visibleTop))
+    });
+  }
+
+  var viewportTick = null;
+  function queueViewport() {
+    if (viewportTick) return;
+    viewportTick = window.requestAnimationFrame(function () {
+      viewportTick = null;
+      sendViewport();
+    });
+  }
+
+  window.addEventListener("scroll", queueViewport, { passive: true });
+  window.addEventListener("resize", queueViewport);
+
   window.addEventListener("message", function (event) {
     if (event.origin !== QUIZ_ORIGIN) return;
     if (event.source !== iframe.contentWindow) return;
@@ -48,6 +81,7 @@
       // Sanity-bound it so a bad value can't collapse or balloon the page.
       if (data.height > 0 && data.height < 20000) {
         iframe.style.height = data.height + "px";
+        queueViewport();
       }
       return;
     }
@@ -60,8 +94,9 @@
         HEADER_OFFSET;
       window.scrollTo({
         top: Math.max(0, target),
-        behavior: reduceMotion ? "auto" : "smooth",
+        behavior: reduceMotion ? "auto" : "smooth"
       });
+      window.setTimeout(sendViewport, 600);
     }
   });
 
@@ -69,11 +104,8 @@
   // button should copy, and prompts it to send its height — which covers the
   // case where this script loads after the iframe has already finished.
   function announce() {
-    if (!iframe.contentWindow) return;
-    iframe.contentWindow.postMessage(
-      { type: "altquiz:parenturl", url: window.location.href },
-      QUIZ_ORIGIN
-    );
+    post({ type: "altquiz:parenturl", url: window.location.href });
+    sendViewport();
   }
 
   iframe.addEventListener("load", announce);

@@ -14,10 +14,11 @@ server avoids any browser file:// quirks: `python3 -m http.server` then visit
 | File | Purpose |
 |------|---------|
 | `index.html` | All four screens (start / intro / question / results) as sections. |
-| `styles.css` | VIMS blue–silver–white theme; responsive; respects reduced motion. |
+| `styles.css` | 2026 brand theme (Marine Blue / Midnight Blue / WM Gold); responsive; respects reduced motion. |
 | `quiz.js` | Screen routing, scoring, and feedback rendering. |
 | `questions.js` | The question bank — **edit content here**, no logic changes needed. |
-| `embed-parent.js` | Runs on the *host* page, not in the quiz. Sizes the iframe and scrolls the page. See "Embed in Cascade". |
+| `enhance.js` | Progressive enhancements on top of `quiz.js`: segmented progress tracker and the click-to-enlarge screenshot overlay. |
+| `embed-parent.js` | Runs on the *host* page, not in the quiz. Sizes the iframe, scrolls the page, and posts the visible viewport strip to the quiz. See "Embed in Cascade". |
 | `src/images/` | The screenshots used in the quiz. |
 
 ## Editing the quiz

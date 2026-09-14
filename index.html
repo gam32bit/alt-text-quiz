@@ -39,99 +39,120 @@
         <button id="start-btn" class="btn btn--primary" type="button">Start</button>
       </section>
 
-      <!-- 2. Intro / explainer --------------------------------------------- -->
+      <!-- 2. Intro / explainer ---------------------------------------------
+           In embed mode everything inside .intro-content is hidden: the Cascade
+           page carries the title, the explainer, the key question and the
+           primer, so the embedded intro is just the Begin button. The markup
+           stays here so the standalone quiz is still complete on its own.
+      -->
       <section id="screen-intro" class="screen" aria-labelledby="intro-title" hidden>
-        <!-- Prose left, the worked example top right like a figure on a page. -->
-        <div class="intro-head">
-          <div class="intro-head-text">
-            <h2 id="intro-title">How this works</h2>
-            <p>
-              You’ll see 10 real images from the VIMS.edu website, each shown in the context where
-              it appears. For each one, pick the alt text you think works best. After you
-              answer, we’ll explain why. You can go back at any time to revisit your answers.
-            </p>
+        <div class="intro-content">
+          <!-- Prose left, the worked example top right like a figure on a page. -->
+          <div class="intro-head">
+            <div class="intro-head-text">
+              <h2 id="intro-title">How this works</h2>
+              <p>
+                You’ll see 10 real images from the VIMS.edu website, each shown in the context where
+                it appears. For each one, pick the alt text you think works best. After you
+                answer, we’ll explain why. You can go back at any time to revisit your answers.
+              </p>
 
-            <p class="caveat">
-              This quiz is rooted in guidance from established accessibility resources, but
-              this is an evolving field and some answers are debatable. Questions or
-              disagreements are welcome — email
-              <a href="mailto:jwcaterine@vims.edu">jwcaterine@vims.edu</a>.
-            </p>
+              <p class="caveat">
+                This quiz is rooted in guidance from established accessibility resources, but
+                this is an evolving field and some answers are debatable. Questions or
+                disagreements are welcome — email
+                <a href="mailto:jwcaterine@vims.edu">jwcaterine@vims.edu</a>.
+              </p>
+            </div>
+
+            <figure class="example">
+              <img
+                class="example-img"
+                src="src/images/seaside_in-text-4.jpg"
+                alt="VIMS &amp; Batten School campers conduct quadrat survey research in marsh grass near the Eastern Shore Lab in Wachapreague, VA."
+              />
+              <figcaption class="example-caption">
+                <span class="example-label">Alt text:</span>
+                “VIMS &amp; Batten School campers conduct quadrat survey research in marsh
+                grass near the Eastern Shore Lab in Wachapreague, VA.”
+              </figcaption>
+            </figure>
           </div>
 
-          <figure class="example">
-            <img
-              class="example-img"
-              src="src/images/seaside_in-text-4.jpg"
-              alt="VIMS &amp; Batten School campers conduct quadrat survey research in marsh grass near the Eastern Shore Lab in Wachapreague, VA."
-            />
-            <figcaption class="example-caption">
-              <span class="example-label">Alt text:</span>
-              “VIMS &amp; Batten School campers conduct quadrat survey research in marsh
-              grass near the Eastern Shore Lab in Wachapreague, VA.”
-            </figcaption>
-          </figure>
+          <aside class="key-question">
+            <p class="key-question-label">The one question to ask for alt text</p>
+            <p class="key-question-text">
+              What is the key takeaway that a sighted person would get from this image?
+            </p>
+          </aside>
+
+          <details class="primer">
+            <summary>New to alt text? Read this first (optional)</summary>
+            <div class="primer-body">
+              <p>
+                <strong>Alt text</strong> (alternative text) is a short written description
+                of an image. Screen readers read it aloud to people who can’t see the image,
+                and it appears if the image fails to load.
+              </p>
+              <p>The one question above does most of the work. What follows from it:</p>
+              <ul>
+                <li>
+                  <strong>If there is no key takeaway — the image is purely decorative — the alt text can be left empty.</strong>
+                  Decorative means purely aesthetic: background textures, borders, dividers,
+                  generic stock graphics, and icons whose meaning is already carried by a
+                  nearby heading or label.
+                  <div class="cms-note">
+                    <p class="cms-note-label">For Cascade users</p>
+                    <p>
+                      Cascade requires alt text to be entered as the “Display Name,” so
+                      marking an image as decorative is not always an option.
+                    </p>
+                  </div>
+                </li>
+                <li><strong>Be concise.</strong> Convey the meaning, not every detail. Skip “image of” / “photo of” — screen readers already say it’s an image. Do name the image <em>type</em> when the type is itself information: a map, a chart, or a scientific illustration.</li>
+                <li>
+                  <strong>A caption is not necessarily the same as alt text.</strong> A caption is visible page text,
+                  and it’s a good place for names, photo credit, and context. Alt text is the
+                  description a screen reader gets. Often it’s a good idea to provide both, but keep in mind a
+                  screen-reader user may hear both.
+                  <div class="cms-note">
+                    <p class="cms-note-label">For Cascade users</p>
+                    <p>
+                      Cascade is the exception: the “Image description” you set when inserting
+                      an image fills the caption and the alt text both, so they will match.
+                      Write one line that works as both.
+                    </p>
+                  </div>
+                </li>
+                <li><strong>Charts &amp; maps need more.</strong> A short summary of the takeaway — and when it’s feasible, the underlying data offered another way: an accessible table, paragraph, or download.</li>
+              </ul>
+            </div>
+          </details>
         </div>
 
-        <aside class="key-question">
-          <p class="key-question-label">The one question to ask for alt text</p>
-          <p class="key-question-text">
-            What is the key takeaway that a sighted person would get from this image?
-          </p>
-        </aside>
+        <!-- Focus target for the Start button in standalone mode. Hidden when
+             .intro-content is visible, since the h2 above already says it. -->
+        <h2 id="intro-title-embed" class="sr-only">Alt text quiz</h2>
 
-        <details class="primer">
-          <summary>New to alt text? Read this first (optional)</summary>
-          <div class="primer-body">
-            <p>
-              <strong>Alt text</strong> (alternative text) is a short written description
-              of an image. Screen readers read it aloud to people who can’t see the image,
-              and it appears if the image fails to load.
-            </p>
-            <p>The one question above does most of the work. What follows from it:</p>
-            <ul>
-              <li>
-                <strong>If there is no key takeaway — the image is purely decorative — the alt text can be left empty.</strong>
-                Decorative means purely aesthetic: background textures, borders, dividers,
-                generic stock graphics, and icons whose meaning is already carried by a
-                nearby heading or label.
-                <div class="cms-note">
-                  <p class="cms-note-label">For Cascade users</p>
-                  <p>
-                    Cascade requires alt text to be entered as the “Display Name,” so
-                    marking an image as decorative is not always an option.
-                  </p>
-                </div>
-              </li>
-              <li><strong>Be concise.</strong> Convey the meaning, not every detail. Skip “image of” / “photo of” — screen readers already say it’s an image. Do name the image <em>type</em> when the type is itself information: a map, a chart, or a scientific illustration.</li>
-              <li>
-                <strong>A caption is not necessarily the same as alt text.</strong> A caption is visible page text,
-                and it’s a good place for names, photo credit, and context. Alt text is the
-                description a screen reader gets. Often it’s a good idea to provide both, but keep in mind a
-                screen-reader user may hear both.
-                <div class="cms-note">
-                  <p class="cms-note-label">For Cascade users</p>
-                  <p>
-                    Cascade is the exception: the “Image description” you set when inserting
-                    an image fills the caption and the alt text both, so they will match.
-                    Write one line that works as both.
-                  </p>
-                </div>
-              </li>
-              <li><strong>Charts &amp; maps need more.</strong> A short summary of the takeaway — and when it’s feasible, the underlying data offered another way: an accessible table, paragraph, or download.</li>
-            </ul>
-          </div>
-        </details>
-
-        <button id="begin-btn" class="btn btn--primary" type="button">Begin the quiz</button>
+        <button id="begin-btn" class="btn btn--primary btn--lg" type="button">Begin the quiz</button>
       </section>
 
       <!-- 3. Question ------------------------------------------------------- -->
       <section id="screen-question" class="screen" aria-labelledby="q-prompt" hidden>
+        <!-- enhance.js wraps this in .q-meta and adds the segment tracker beside it. -->
         <p id="progress" class="progress"></p>
 
         <figure class="q-figure">
-          <img id="q-image" src="" alt="" />
+          <button class="q-zoom" type="button" aria-label="Enlarge this screenshot">
+            <img id="q-image" src="" alt="" />
+          </button>
+          <figcaption class="q-zoom-hint">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="M20 20l-4.5-4.5M11 8v6M8 11h6"></path>
+            </svg>
+            Click the screenshot to enlarge
+          </figcaption>
         </figure>
 
         <h2 id="q-prompt" class="q-prompt"></h2>
@@ -168,7 +189,8 @@
 
       <!-- 4. Results -------------------------------------------------------- -->
       <section id="screen-results" class="screen screen--center" aria-labelledby="results-title" hidden>
-        <!-- Decorative flair — no takeaway, empty alt. -->
+        <!-- Decorative flair — no takeaway, empty alt. In embed mode this sits in
+             the side column, where the crop can stay gentle. -->
         <img class="flair flair--high" src="src/images/graduating-class-2026.jpg" alt="" />
         <h2 id="results-title">Your results</h2>
         <p class="final-score" id="final-score"></p>
@@ -206,5 +228,6 @@
 
     <script src="questions.js"></script>
     <script src="quiz.js"></script>
+    <script src="enhance.js"></script>
   </body>
 </html>

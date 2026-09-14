@@ -1,129 +1,86 @@
-/* Alt Text Quiz — VIMS blue / silver / white theme. No orange. */
+/* Alt Text Quiz — VIMS & Batten School 2026 brand.
+   Palette: Midnight #06263B · Marine #00677E · River #85B8C7 · WM Gold #B79257
+   Type: Brother 1816 -> Calibri -> Arial (licensed brand font, named backups). */
 
 :root {
-  --vims-blue: #003b5c;        /* deep VIMS navy */
-  --vims-blue-bright: #00598a; /* accent / links */
-  --vims-blue-light: #e6eef3;  /* tint backgrounds */
-  --silver: #d9dee2;
-  --silver-dark: #9aa6ad;
-  --ink: #1c2b33;
+  --midnight: #06263B;
+  --marine: #00677E;
+  --marine-700: #004f60;
+  --marine-050: #eef6f8;
+  --river: #85B8C7;
+  --gold: #B79257;
+  --gold-050: #f8f2e6;
+  --gold-ink: #6F5730;
+  --ink: #10171c;
+  --slate-900: #232b31;
+  --slate-700: #4a545c;
+  --slate-300: #aab2b8;
+  --slate-200: #d1d6da;
+  --slate-050: #f5f6f7;
   --white: #ffffff;
-  --correct: #1d6b3a;
-  --correct-bg: #e7f4ec;
-  --wrong: #7a5500;
-  --wrong-bg: #fef8e7;
-  --radius: 10px;
-  --shadow: 0 2px 10px rgba(0, 59, 92, 0.12);
+  --correct: #1E6B4F;
+  --correct-bg: #EAF4EF;
+  --radius: 4px;
+  --shadow-1: 0 1px 3px rgba(6, 38, 59, 0.10);
+  --font-sans: "Brother 1816", "Brother1816", Calibri, Arial, system-ui, sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: var(--font-sans);
   color: var(--ink);
-  background: var(--vims-blue-light);
-  line-height: 1.55;
+  background: var(--slate-050);
+  line-height: 1.5;
 }
 
 .app {
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
   padding: 2rem 1.25rem 3rem;
 }
 
-/* --- Accessibility helpers ------------------------------------------------ */
+/* --- Accessibility helpers ---------------------------------------------- */
 .sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
-
 .skip-link {
-  position: absolute;
-  left: -999px;
-  top: 0;
-  background: var(--vims-blue);
-  color: var(--white);
-  padding: 0.6rem 1rem;
-  z-index: 10;
+  position: absolute; left: -999px; top: 0;
+  background: var(--midnight); color: var(--white); padding: 0.6rem 1rem; z-index: 60;
 }
-.skip-link:focus {
-  left: 0;
-}
+.skip-link:focus { left: 0; }
+:focus-visible { outline: 2px solid var(--marine); outline-offset: 2px; }
 
-:focus-visible {
-  outline: 3px solid var(--vims-blue-bright);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* --- Screens ------------------------------------------------------------- */
+/* --- Screens ------------------------------------------------------------ */
 .screen {
   background: var(--white);
-  border: 1px solid var(--silver);
-  border-top: 5px solid var(--vims-blue);
+  border: 1px solid var(--slate-200);
+  border-top: 4px solid var(--marine);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-1);
   padding: 1.75rem;
 }
-.screen--center {
-  text-align: center;
-}
+.screen--center { text-align: center; }
 
-h1 {
-  color: var(--vims-blue);
-  font-size: 2rem;
-  margin: 0.25rem 0 0.75rem;
-}
-h2 {
-  color: var(--vims-blue);
-  font-size: 1.4rem;
-  margin: 0 0 0.75rem;
-}
-h3 {
-  color: var(--vims-blue);
-  font-size: 1.1rem;
-  margin: 1.5rem 0 0.5rem;
-}
+h1, h2, h3 { font-family: var(--font-sans); color: var(--midnight); }
+h1 { font-size: 2rem; line-height: 1.15; margin: 0.25rem 0 0.75rem; }
+h2 { font-size: 1.5rem; line-height: 1.2; margin: 0 0 0.65rem; }
+h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; }
 
-.lede {
-  font-size: 1.1rem;
-  max-width: 48ch;
-  margin: 0 auto 1.5rem;
-}
+a { color: var(--marine); }
+a:hover { color: var(--midnight); }
 
-/* Decorative-flair photos on the start / intro / results screens. */
+.lede { font-size: 1.1rem; max-width: 48ch; margin: 0 auto 1.5rem; }
+
 .flair {
-  display: block;
-  width: 100%;
-  max-height: 260px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  border: 1px solid var(--silver);
-  margin: 0 0 1.25rem;
+  display: block; width: 100%; max-height: 260px; object-fit: cover;
+  border: 1px solid var(--slate-200); margin: 0 0 1.25rem;
 }
-/* Shift the crop up so the subjects sit a little higher in frame. */
-.flair--high {
-  object-position: center 22%;
-}
+.flair--high { object-position: center 26%; }
 
-/* Intro header: the explainer prose on the left, the worked example in the top
-   right corner — the photo with its alt text set below it as a caption. */
+/* --- Intro -------------------------------------------------------------- */
 .intro-head {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
@@ -131,489 +88,299 @@ h3 {
   align-items: start;
   margin-bottom: 1.25rem;
 }
-.intro-head-text > :first-child {
-  margin-top: 0;
-}
-@media (max-width: 699px) {
-  .intro-head {
-    display: block;
-  }
-}
+.intro-head-text > :first-child { margin-top: 0; }
+@media (max-width: 699px) { .intro-head { display: block; } }
 
-/* Intro example: a photo shown with its alt text. */
-.example {
-  margin: 0;
-}
+.example { margin: 0; }
 .example-img {
-  display: block;
-  width: 100%;
-  max-width: 340px;
-  height: auto;
-  border-radius: 6px;
-  border: 1px solid var(--silver);
-  background: var(--white);
+  display: block; width: 100%; max-width: 340px; height: auto;
+  border: 1px solid var(--slate-200); background: var(--white);
 }
 .example-caption {
-  max-width: 340px;
-  margin-top: 0.5rem;
-  font-style: italic;
-  font-size: 0.88rem;
-  line-height: 1.45;
-  color: var(--ink);
+  max-width: 340px; margin-top: 0.5rem; font-style: italic;
+  font-size: 0.9rem; line-height: 1.45; color: var(--slate-900);
 }
-.example-label {
-  font-style: normal;
-  font-weight: 700;
-  color: var(--vims-blue);
-}
-@media (max-width: 699px) {
-  .example {
-    margin: 1.25rem 0;
-  }
-}
+.example-label { font-style: normal; font-weight: 700; color: var(--midnight); }
+@media (max-width: 699px) { .example { margin: 1.25rem 0; } }
 
-/* --- Buttons ------------------------------------------------------------- */
-.btn {
-  font: inherit;
-  font-weight: 600;
-  border-radius: 6px;
-  padding: 0.7rem 1.4rem;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: background-color 0.15s ease, border-color 0.15s ease;
-}
-.btn--primary {
-  background: var(--vims-blue);
-  color: var(--white);
-}
-.btn--primary:hover:not(:disabled) {
-  background: var(--vims-blue-bright);
-}
-.btn--primary:disabled {
-  background: var(--silver-dark);
-  cursor: not-allowed;
-}
-.btn--secondary {
-  background: var(--white);
-  color: var(--vims-blue);
-  border-color: var(--vims-blue);
-}
-.btn--secondary:hover {
-  background: var(--vims-blue-light);
-}
+.caveat { margin: 1rem 0 0; font-style: italic; font-size: 0.95rem; color: var(--slate-900); }
 
-/* Debatability note on the intro screen — a quiet italic aside, deliberately not
-   a callout so it doesn't compete with the key question below it. */
-.caveat {
-  margin: 1rem 0 0;
-  font-style: italic;
-  font-size: 0.92rem;
-}
-
-/* Cascade-only guidance inside the primer — tinted so it reads as an aside. */
-.cms-note {
-  margin: 0.75rem 0 0.25rem;
-  padding: 0.6rem 0.85rem;
-  background: var(--vims-blue-light);
-  border: 1px solid var(--silver);
-  border-radius: 6px;
-  font-size: 0.9rem;
-}
-.cms-note-label {
-  margin: 0 0 0.2rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--vims-blue);
-}
-.cms-note p:last-child {
-  margin-bottom: 0;
-}
-
-/* The core rule the whole quiz turns on — given a card of its own so it doesn't
-   disappear into the surrounding prose. */
 .key-question {
-  margin: 0 0 1.25rem;
-  padding: 1rem 1.1rem;
-  background: var(--white);
-  border-left: 5px solid var(--vims-blue-bright);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  box-shadow: var(--shadow);
+  margin: 0 0 1.25rem; padding: 0.9rem 1.15rem;
+  background: var(--marine-050); border-left: 4px solid var(--marine);
 }
 .key-question-label {
-  margin: 0 0 0.35rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--vims-blue-bright);
+  margin: 0 0 0.35rem; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.09em; text-transform: uppercase; color: var(--marine-700);
 }
 .key-question-text {
-  margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.4;
-  font-weight: 600;
-  color: var(--vims-blue);
+  margin: 0; font-size: 1.3rem; line-height: 1.3; font-weight: 600;
+  color: var(--midnight); text-wrap: pretty;
 }
 
-/* --- Intro primer -------------------------------------------------------- */
 .primer {
-  background: var(--vims-blue-light);
-  border: 1px solid var(--silver);
-  border-radius: var(--radius);
-  padding: 0.75rem 1rem;
-  margin: 1.25rem 0;
+  background: var(--slate-050); border: 1px solid var(--slate-200);
+  border-radius: var(--radius); padding: 0.75rem 1rem; margin: 1.25rem 0;
 }
-.primer > summary {
-  cursor: pointer;
-  font-weight: 600;
-  color: var(--vims-blue);
-}
-.primer-body {
-  margin-top: 0.75rem;
-}
-.primer-body ul {
-  padding-left: 1.2rem;
-}
+.primer > summary { cursor: pointer; font-weight: 600; color: var(--marine); }
+.primer-body { margin-top: 0.75rem; }
+.primer-body ul { padding-left: 1.2rem; }
 
-/* --- Question ------------------------------------------------------------ */
+.cms-note {
+  margin: 0.75rem 0 0.25rem; padding: 0.6rem 0.85rem;
+  background: var(--gold-050); border-left: 3px solid var(--gold);
+  font-size: 0.92rem;
+}
+.cms-note-label {
+  margin: 0 0 0.2rem; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-ink);
+}
+.cms-note p:last-child { margin-bottom: 0; }
+
+/* --- Buttons ------------------------------------------------------------ */
+.btn {
+  font: inherit; font-size: 1rem; font-weight: 600;
+  border-radius: var(--radius); padding: 0.65rem 1.35rem; cursor: pointer;
+  border: 2px solid transparent;
+  transition: background-color 0.22s cubic-bezier(0.2, 0, 0, 1),
+              border-color 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+.btn--primary { background: var(--marine); border-color: var(--marine); color: var(--white); }
+.btn--primary:hover:not(:disabled) { background: var(--midnight); border-color: var(--midnight); }
+.btn--primary:disabled { background: var(--slate-300); border-color: var(--slate-300); cursor: not-allowed; }
+.btn--secondary { background: var(--white); color: var(--marine); border-color: var(--marine); }
+.btn--secondary:hover { background: var(--marine-050); }
+.btn--lg { font-size: 1.125rem; padding: 0.85rem 2.1rem; }
+
+/* --- Question: meta row + progress tracker ------------------------------ */
+/* .q-meta is created by enhance.js: it wraps #progress and the segment track. */
+.q-meta {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.25rem; margin: 0 0 0.9rem;
+}
 .progress {
-  color: var(--silver-dark);
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 0.75rem;
+  color: var(--slate-700); font-weight: 700; font-size: 0.75rem;
+  text-transform: uppercase; letter-spacing: 0.1em; margin: 0;
 }
+.progress-track { display: flex; gap: 4px; flex: 0 0 auto; }
+.progress-seg { width: 22px; height: 5px; border-radius: 2px; background: var(--slate-200); }
+.progress-seg.is-done { background: var(--marine); }
+.progress-seg.is-current { background: var(--gold); }
 
-.q-figure {
-  margin: 0 0 1rem;
-  /* Reserve space so the card doesn't jump while each screenshot loads. */
-  min-height: 200px;
+/* --- Question: figure + zoom ------------------------------------------- */
+.q-figure { margin: 0 0 1rem; }
+.q-zoom {
+  display: block; width: 100%; padding: 0; line-height: 0;
+  border: 1px solid var(--slate-200); background: var(--white); cursor: zoom-in;
+  transition: border-color 0.22s cubic-bezier(0.2, 0, 0, 1);
 }
-.q-figure img {
-  display: block;
-  max-width: 100%;
-  /* Cap the tall screenshots (the TideWatch legend is 774px) so a question
-     card stays roughly one screen. Aspect ratio is preserved by height:auto. */
-  max-height: 400px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  margin: 0 auto;
-  border: 1px solid var(--silver);
-  border-radius: 6px;
-  background: var(--white);
+.q-zoom:hover { border-color: var(--marine); }
+.q-zoom img {
+  display: block; width: 100%; max-height: 400px;
+  object-fit: contain; object-position: top;
 }
+.q-zoom-hint {
+  display: flex; align-items: center; gap: 0.4rem; margin-top: 0.5rem;
+  font-size: 0.85rem; font-weight: 600; color: var(--marine);
+}
+.q-zoom-hint svg { flex: 0 0 auto; }
+
 .q-prompt {
-  font-size: 1.25rem;
+  font-size: 1.3rem; line-height: 1.3; font-weight: 600;
+  margin: 0 0 0.85rem; text-wrap: pretty;
 }
 
-.q-options-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
-}
-.q-options {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin: 0 0 1rem;
-}
+/* --- Options ------------------------------------------------------------ */
+.q-options-fieldset { border: 0; margin: 0; padding: 0; }
+.q-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 0 0 0.9rem; }
 
 .option {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  border: 2px solid var(--silver);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  cursor: pointer;
-  background: var(--white);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
+  display: flex; align-items: flex-start; gap: 0.65rem;
+  border: 2px solid var(--slate-200); border-radius: var(--radius);
+  padding: 0.7rem 0.9rem; cursor: pointer; background: var(--white);
+  font-size: 1rem; line-height: 1.35;
+  transition: border-color 0.22s cubic-bezier(0.2, 0, 0, 1),
+              background-color 0.22s cubic-bezier(0.2, 0, 0, 1);
 }
-.option:hover {
-  border-color: var(--vims-blue-bright);
-  background: var(--vims-blue-light);
-}
+.option:hover { border-color: var(--marine); background: var(--marine-050); }
 .option input {
-  margin-top: 0.2rem;
-  flex: 0 0 auto;
-  width: 1.1rem;
-  height: 1.1rem;
-  accent-color: var(--vims-blue);
+  margin-top: 0.15rem; flex: 0 0 auto; width: 1.1rem; height: 1.1rem;
+  accent-color: var(--marine);
 }
-.option-text {
-  flex: 1;
-}
-.option:has(input:checked) {
-  border-color: var(--vims-blue);
-  background: var(--vims-blue-light);
-}
+.option-text { flex: 1; }
+.option:has(input:checked) { border-color: var(--marine); background: var(--marine-050); }
 
-/* Answered states — never rely on color alone; we also add ✓/✗ markers. */
-.option.is-correct {
-  border-color: var(--correct);
-  background: var(--correct-bg);
-}
+.option.is-correct { border-color: var(--correct); background: var(--correct-bg); }
 .option.is-correct .option-text::after {
-  content: " ✓ best answer";
-  font-weight: 700;
-  color: var(--correct);
+  content: " \2713 best answer"; font-weight: 700; color: var(--correct);
 }
-.option.is-wrong {
-  border-color: var(--wrong);
-  background: var(--wrong-bg);
-}
+.option.is-wrong { border-color: var(--gold); background: var(--gold-050); }
 .option.is-wrong .option-text::after {
-  content: " ← your choice";
-  font-weight: 700;
-  color: var(--wrong);
+  content: " \2190 your choice"; font-weight: 700; color: var(--gold-ink);
 }
+.option:has(input:disabled) { cursor: default; }
+.option:has(input:disabled):hover { border-color: var(--slate-200); background: var(--white); }
+.option.is-correct:hover { border-color: var(--correct); background: var(--correct-bg); }
+.option.is-wrong:hover { border-color: var(--gold); background: var(--gold-050); }
 
-/* --- Feedback ------------------------------------------------------------ */
+/* --- Feedback ----------------------------------------------------------- */
 .feedback {
-  border-radius: 8px;
-  padding: 1rem 1.1rem;
-  margin: 0 0 1rem;
-  border-left: 5px solid var(--silver-dark);
-  background: var(--vims-blue-light);
+  padding: 0.8rem 1rem; margin: 0 0 1rem;
+  border-left: 4px solid var(--slate-300); background: var(--slate-050);
+  font-size: 0.98rem;
 }
-.feedback.is-correct {
-  border-left-color: var(--correct);
-  background: var(--correct-bg);
-}
-.feedback.is-wrong {
-  border-left-color: var(--wrong);
-  background: var(--wrong-bg);
-}
-.feedback-heading {
-  font-weight: 700;
-  margin: 0 0 0.4rem;
-}
-.feedback.is-correct .feedback-heading {
-  color: var(--correct);
-}
-.feedback.is-wrong .feedback-heading {
-  color: var(--wrong);
-}
-.feedback p:last-child {
-  margin-bottom: 0;
-}
+.feedback.is-correct { border-left-color: var(--correct); background: var(--correct-bg); }
+.feedback.is-wrong { border-left-color: var(--gold-ink); background: var(--gold-050); }
+.feedback-heading { font-weight: 700; margin: 0 0 0.35rem; }
+.feedback.is-correct .feedback-heading { color: var(--correct); }
+.feedback.is-wrong .feedback-heading { color: var(--gold-ink); }
+.feedback p:last-child { margin-bottom: 0; }
 
-/* Cascade aside — deliberately quieter than the explanation above it. */
 .cascade-note {
-  margin: 0.9rem 0 0;
-  padding: 0.6rem 0.85rem;
-  border-left: 3px solid var(--silver-dark);
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 0 6px 6px 0;
+  margin: 0.85rem 0 0; padding: 0.55rem 0.8rem;
+  border-left: 3px solid var(--gold); background: rgba(255, 255, 255, 0.65);
   font-size: 0.9rem;
 }
 .cascade-note-label {
-  margin: 0 0 0.2rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--vims-blue);
+  margin: 0 0 0.2rem; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-ink);
 }
-.cascade-note p:last-child {
-  margin-bottom: 0;
-}
+.cascade-note p:last-child { margin-bottom: 0; }
 
-.q-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.q-actions-spacer {
-  flex: 1; /* pushes Back to the left, Submit/Next to the right */
-}
+.q-actions { display: flex; align-items: center; gap: 0.6rem; }
+.q-actions-spacer { flex: 1; }
 
-/* --- Results ------------------------------------------------------------- */
-.final-score {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--vims-blue);
-  margin: 0.5rem 0;
+/* --- Lightbox (built by enhance.js) ------------------------------------- */
+.lb {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.9rem; padding: 1.75rem;
+  background: rgba(6, 38, 59, 0.94); cursor: zoom-out;
 }
-.score-label {
-  margin: -0.35rem 0 1rem;
-  font-size: 0.95rem;
-  color: var(--ink);
+/* In embed mode the parent tells us where the visible strip is, so the overlay
+   lands on screen instead of in the middle of a very tall iframe. */
+.lb.is-positioned { position: absolute; inset: auto 0 auto 0; }
+.lb img {
+  max-width: 94vw; max-height: 82vh; object-fit: contain;
+  background: var(--white); border: 1px solid #5b7d92;
 }
-.results-message {
-  font-size: 1.1rem;
-  max-width: 50ch;
-  margin: 0 auto 1rem;
+.lb-close {
+  font: inherit; font-size: 0.95rem; font-weight: 600;
+  background: transparent; color: var(--white);
+  border: 2px solid var(--river); border-radius: var(--radius);
+  padding: 0.5rem 1.1rem; cursor: pointer;
 }
+.lb-close:hover { background: #0c3350; }
+
+/* --- Results ------------------------------------------------------------ */
+.final-score { font-size: 3.25rem; font-weight: 800; line-height: 1; color: var(--marine); margin: 0.25rem 0 0.4rem; }
+.score-label { margin: 0 0 1rem; font-size: 0.95rem; color: var(--slate-700); }
+.results-message { font-size: 1.1rem; max-width: 46ch; margin: 0 auto 1rem; text-wrap: pretty; }
 .results-learn {
-  text-align: left;
-  max-width: 36rem;
-  margin: 1.75rem auto 0;
-  padding-top: 1.25rem;
-  border-top: 1px solid var(--silver);
+  text-align: left; max-width: 36rem; margin: 1.5rem auto 0;
+  padding-top: 0.9rem; border-top: 2px solid var(--gold);
 }
 .learn-heading {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--silver-dark);
-  margin: 0 0 0.5rem;
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.09em; color: var(--slate-700); margin: 0 0 0.6rem;
 }
-.resources {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.resources li {
-  margin: 0.4rem 0;
-}
-a {
-  color: var(--vims-blue-bright);
-}
-.resources a {
-  font-weight: 600;
-}
+.resources { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.resources a { font-weight: 600; }
+.results-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.5rem; }
+.share-status { min-height: 1.2em; margin: 0.7rem 0 0; color: var(--marine); font-weight: 600; }
 
-.results-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.75rem;
-}
-.share-status {
-  min-height: 1.2em;
-  margin: 0.75rem 0 0;
-  color: var(--vims-blue);
-  font-weight: 600;
-}
-
-/* --- Responsive ---------------------------------------------------------- */
+/* --- Responsive --------------------------------------------------------- */
 @media (max-width: 520px) {
-  .app {
-    padding: 1rem 0.75rem 2rem;
-  }
-  .screen {
-    padding: 1.25rem;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
-  .q-actions {
-    justify-content: stretch;
-  }
-  .q-actions .btn {
-    width: 100%;
-  }
+  .app { padding: 1rem 0.75rem 2rem; }
+  .screen { padding: 1.25rem; }
+  h1 { font-size: 1.6rem; }
+  .q-meta { flex-wrap: wrap; gap: 0.5rem; }
+  .q-actions { flex-wrap: wrap; }
+  .q-actions .btn { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-  }
+  * { transition: none !important; }
 }
 
-/* --- Embed mode ----------------------------------------------------------
- * Set by the inline <head> script when the URL carries ?embed=1. The quiz is
- * inside an iframe on a CMS page that already supplies the page title, lede and
- * chrome, and whose parent script sizes the iframe to this content — so there is
- * no inner scrollbar and every pixel of height here is page height. Trim
- * accordingly. See embed-parent.js and the README.
- * ------------------------------------------------------------------------- */
+/* =========================================================================
+   EMBED MODE — ?embed=1, inside the iframe on the Cascade page.
+   The host page owns the title, the intro copy and the primer; the parent
+   script sizes the iframe to this content, so every pixel here is page
+   height. Trim hard, keep the screenshots big.
+   ========================================================================= */
 
-/* A block formatting context, so child margins can't collapse out through body
-   and make it measure shorter than what's on screen. The parent sizes the iframe
-   from body's box (see sendHeight in quiz.js). */
-html.is-embed body {
-  display: flow-root;
-  /* The host page supplies the surrounding chrome; a tinted panel inside it
-     just reads as a box within a box. White also lets the card below drop its
-     own padding and border, which is real width and height back. */
-  background: var(--white);
-}
+html.is-embed body { display: flow-root; background: var(--white); }
 
-/* No card: the screens are the page here. */
 html.is-embed .screen {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0;
+  background: transparent; border: 0; border-radius: 0;
+  box-shadow: none; padding: 0;
 }
 
 html.is-embed .app {
-  /* The host page's heading supplies the top spacing. */
-  padding-top: 0;
-  padding-bottom: 1rem;
-  /* Wide enough for the two-column question layout below. */
+  padding: 0 0 0.5rem;
   max-width: 1140px;
 }
 
-/* Prose screens keep a readable measure even though .app got wider. */
-html.is-embed #screen-intro,
-html.is-embed #screen-results {
-  max-width: 760px;
-  margin-left: auto;
-  margin-right: auto;
+/* The intro screen is one button: the explainer, the key question and the
+   primer all live on the Cascade page now. Markup stays for the standalone
+   version. */
+html.is-embed .intro-content { display: none; }
+html.is-embed #screen-intro { text-align: center; padding: 0.5rem 0 0.75rem; }
+
+html.is-embed #screen-results { max-width: 1000px; margin: 0 auto; }
+
+html.is-embed .q-prompt { font-size: 1.25rem; }
+html.is-embed .option { font-size: 1rem; }
+
+/* Results: photo and resources in a side column so the photo can breathe
+   without a hard banner crop. */
+@media (min-width: 820px) {
+  /* :not([hidden]) is load-bearing here too — display:grid would otherwise beat
+     the UA stylesheet's [hidden] { display: none } and show the results screen
+     underneath the live question. */
+  html.is-embed #screen-results:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+    column-gap: 2.1rem;
+    align-items: start;
+    text-align: left;
+  }
+  html.is-embed #screen-results > .flair {
+    grid-column: 2; grid-row: 1 / span 2;
+    height: 215px; max-height: none; margin: 0;
+  }
+  html.is-embed #screen-results > #results-title,
+  html.is-embed #screen-results > .final-score,
+  html.is-embed #screen-results > .score-label,
+  html.is-embed #screen-results > #results-message,
+  html.is-embed #screen-results > .results-actions,
+  html.is-embed #screen-results > .share-status {
+    grid-column: 1; margin-left: 0; margin-right: 0;
+  }
+  html.is-embed #screen-results > .results-learn {
+    grid-column: 2; grid-row: 3; margin: 0.25rem 0 0; max-width: none;
+  }
+  html.is-embed #screen-results > .results-actions { justify-content: flex-start; }
 }
 
-/* The results photo, kept but shallower — it's decorative, and the reader has
-   already scrolled a long way to reach this screen. */
-html.is-embed .flair--high {
-  max-height: 180px;
-  margin-bottom: 1rem;
-}
-
-/* Question text a touch smaller, to pay for the taller screenshots beside it. */
-html.is-embed .q-prompt {
-  font-size: 1.125rem;
-}
-html.is-embed .option {
-  font-size: 0.95rem;
-  padding: 0.7rem 0.9rem;
-}
-
-/* Screenshot beside the question instead of above it — roughly 40% off the
-   height of a question card. Photo right, question and answers left, so the
-   reading order on screen matches the DOM order a screen reader follows.
-   Not sticky: with the iframe auto-sized to its content this document never
-   scrolls, so there is nothing to stick against. */
-@media (min-width: 900px) {
-  /* :not([hidden]) is load-bearing. This selector's specificity beats the UA
-     stylesheet's `[hidden] { display: none }`, so without it `display: grid`
-     keeps the question screen visible even while JS has it hidden — it shows
-     up as an empty card below the intro and results screens. */
+/* Question screen: screenshot beside the question, not above it. Reading
+   order on screen matches DOM order for screen-reader users. */
+@media (min-width: 820px) {
+  /* :not([hidden]) is load-bearing — it must out-specify the UA stylesheet's
+     [hidden] { display: none }, or the hidden screen shows as an empty grid. */
   html.is-embed #screen-question:not([hidden]) {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 462px);
     column-gap: 1.75rem;
     align-items: start;
   }
-  html.is-embed #screen-question > .progress {
-    grid-column: 1 / -1;
-    grid-row: 1;
-  }
+  html.is-embed #screen-question > .q-meta { grid-column: 1 / -1; grid-row: 1; }
   html.is-embed #screen-question > .q-figure {
-    grid-column: 2;
-    grid-row: 2 / span 2;
-    margin-bottom: 0;
+    grid-column: 2; grid-row: 2 / span 2; margin-bottom: 0;
   }
-  html.is-embed #screen-question > .q-figure img {
-    /* Room to spare now that it isn't stacked above the question. */
-    max-height: 460px;
-  }
-  html.is-embed #screen-question > .q-prompt {
-    grid-column: 1;
-    grid-row: 2;
-    margin-top: 0;
-  }
-  html.is-embed #screen-question > #answer-form {
-    grid-column: 1;
-    grid-row: 3;
-  }
+  html.is-embed #screen-question > .q-zoom img,
+  html.is-embed #screen-question .q-zoom img { max-height: 520px; }
+  html.is-embed #screen-question > .q-prompt { grid-column: 1; grid-row: 2; margin-top: 0; }
+  html.is-embed #screen-question > #answer-form { grid-column: 1; grid-row: 3; }
 }
