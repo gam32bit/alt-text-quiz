@@ -70,12 +70,19 @@ Following W&M Web & Design's pattern for JavaScript in Cascade:
 
 1. Create a `_scripts` folder in the section holding the page.
 2. Add `embed-parent.js` from this repo to it (as `alt-text-quiz-embed.js`, say).
-3. Create a format or block in a `_blocks` folder whose content loads it:
+3. Create a **Velocity** format in a `_formats` folder — name it to match the script,
+   e.g. `alt-text-quiz-embed` — whose entire contents is the one line that loads it:
    ```html
    <script src="/path/to/_scripts/alt-text-quiz-embed.js"></script>
    ```
-4. On the quiz page, Configure tab, assign that block in the **INCLUDES_EXTRA** region.
-5. Publish the script and the block **before** the page that includes them.
+   Velocity, not XSLT: a Velocity format passes through anything that isn't a `#`
+   directive or a `$` reference, so this needs no templating at all. XSLT serializes
+   empty elements as self-closing, and a `<script src="..."/>` makes HTML parsers
+   swallow the rest of the page as script content.
+4. On the quiz page, Configure tab, assign that format in the **INCLUDES_EXTRA** region.
+5. Publish the `_scripts` file, then republish the quiz page. The format itself is not
+   a publishable asset — it is applied when the page renders — so the page needs a
+   republish to pick it up.
 
 Nothing here touches the quiz's CSS, so the Cascade template has nothing to block —
 the stylesheet stays inside the iframe, where it also cannot collide with the site
