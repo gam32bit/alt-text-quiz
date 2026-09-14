@@ -308,12 +308,15 @@
     requestScroll(0);
   }
 
-  function startQuiz() {
+  // moveFocus is false on first paint in embed mode: the quiz opens on question 1
+  // there, and focusing the prompt would yank the host page down to the iframe.
+  function startQuiz(moveFocus) {
     state.currentIndex = 0;
     state.answers = [];
     els.shareStatus.textContent = "";
     renderQuestion();
     showScreen("question");
+    if (moveFocus === false) return;
     focusPrompt();
     requestScroll(0);
   }
@@ -348,7 +351,9 @@
     h2.focus(FOCUS_OPTS);
     requestScroll(0);
   });
-  document.getElementById("begin-btn").addEventListener("click", startQuiz);
+  document.getElementById("begin-btn").addEventListener("click", function () {
+    startQuiz();
+  });
   els.backBtn.addEventListener("click", back);
   // Submit via the button or by pressing Enter anywhere in the form.
   document.getElementById("answer-form").addEventListener("submit", function (e) {
@@ -357,7 +362,16 @@
   });
   els.nextBtn.addEventListener("click", next);
   els.shareBtn.addEventListener("click", shareQuiz);
-  document.getElementById("restart-btn").addEventListener("click", startQuiz);
+  document.getElementById("restart-btn").addEventListener("click", function () {
+    startQuiz();
+  });
 
-  showScreen(IS_EMBED ? "intro" : "start");
+  // Embedded, the Cascade page carries the title and the explainer, so there is
+  // nothing for a start or intro screen to hold — open on question 1. The
+  // standalone quiz still walks through start -> intro -> question.
+  if (IS_EMBED) {
+    startQuiz(false);
+  } else {
+    showScreen("start");
+  }
 })();
