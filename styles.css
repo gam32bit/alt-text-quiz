@@ -277,7 +277,7 @@ h3 {
   max-width: 100%;
   /* Cap the tall screenshots (the TideWatch legend is 774px) so a question
      card stays roughly one screen. Aspect ratio is preserved by height:auto. */
-  max-height: 340px;
+  max-height: 400px;
   width: auto;
   height: auto;
   object-fit: contain;
@@ -518,7 +518,7 @@ html.is-embed .app {
   padding-top: 0;
   padding-bottom: 1rem;
   /* Wide enough for the two-column question layout below. */
-  max-width: 1040px;
+  max-width: 1140px;
 }
 
 /* Prose screens keep a readable measure even though .app got wider. */
@@ -535,13 +535,26 @@ html.is-embed .flair--high {
   display: none;
 }
 
+/* Question text a touch smaller, to pay for the taller screenshots above. */
+html.is-embed .q-prompt {
+  font-size: 1.125rem;
+}
+html.is-embed .option {
+  font-size: 0.95rem;
+  padding: 0.7rem 0.9rem;
+}
+
 /* Screenshot beside the question instead of above it — roughly 40% off the
    height of a question card. Not sticky: with the iframe auto-sized to its
    content this document never scrolls, so there is nothing to stick against. */
 @media (min-width: 900px) {
-  html.is-embed #screen-question {
+  /* :not([hidden]) is load-bearing. This selector's specificity beats the UA
+     stylesheet's `[hidden] { display: none }`, so without it `display: grid`
+     keeps the question screen visible even while JS has it hidden — it shows
+     up as an empty card below the intro and results screens. */
+  html.is-embed #screen-question:not([hidden]) {
     display: grid;
-    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 430px) minmax(0, 1fr);
     column-gap: 1.75rem;
     align-items: start;
   }

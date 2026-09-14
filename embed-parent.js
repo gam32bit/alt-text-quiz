@@ -2,8 +2,8 @@
  * Alt Text Quiz — parent-page embed helper.
  *
  * This file runs on the page that HOSTS the quiz iframe, not inside the quiz.
- * In Cascade: copy it into a "_scripts" folder, load it from a format or block,
- * and assign that block in the INCLUDES_EXTRA region on the quiz page's
+ * In Cascade: copy it into a "_scripts" folder, load it from a Velocity format,
+ * and assign that format in the INCLUDES_EXTRA region on the quiz page's
  * Configure tab. The README has the full recipe.
  *
  * It does two things the iframe cannot do for itself:
