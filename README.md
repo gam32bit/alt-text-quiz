@@ -55,8 +55,10 @@ were — a cross-origin iframe cannot resize itself or scroll its parent.
 ```
 
 - `?embed=1` turns on embed mode: the quiz skips its own start screen (the host page
-  already has the title and lede), trims its padding, caps screenshot height, drops the
-  results photo, and goes two-column on the question screen at 900px and wider.
+  already has the title and lede), drops the card chrome and tinted background so the
+  content sits straight on white, shrinks the results photo, puts the intro example
+  photo beside its alt text at 700px and wider, and goes two-column on the question
+  screen at 900px and wider — screenshot right, question and answers left.
 - `allow="clipboard-write"` is **required** for the "Share quiz" button. Without it the
   browser blocks the Clipboard API in a cross-origin frame and the button silently
   falls back to printing the link on screen.

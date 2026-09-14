@@ -511,6 +511,19 @@ a {
    from body's box (see sendHeight in quiz.js). */
 html.is-embed body {
   display: flow-root;
+  /* The host page supplies the surrounding chrome; a tinted panel inside it
+     just reads as a box within a box. White also lets the card below drop its
+     own padding and border, which is real width and height back. */
+  background: var(--white);
+}
+
+/* No card: the screens are the page here. */
+html.is-embed .screen {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
 }
 
 html.is-embed .app {
@@ -529,13 +542,14 @@ html.is-embed #screen-results {
   margin-right: auto;
 }
 
-/* Decorative only, and the reader has already scrolled a long way to reach the
-   results. Its job on the standalone page doesn't carry over. */
+/* The results photo, kept but shallower — it's decorative, and the reader has
+   already scrolled a long way to reach this screen. */
 html.is-embed .flair--high {
-  display: none;
+  max-height: 180px;
+  margin-bottom: 1rem;
 }
 
-/* Question text a touch smaller, to pay for the taller screenshots above. */
+/* Question text a touch smaller, to pay for the taller screenshots beside it. */
 html.is-embed .q-prompt {
   font-size: 1.125rem;
 }
@@ -544,9 +558,41 @@ html.is-embed .option {
   padding: 0.7rem 0.9rem;
 }
 
+/* The intro example is an illustration of alt text, not a screenshot to be
+   judged, so it can be small even when it's still stacked. */
+html.is-embed .example-img {
+  max-height: 260px;
+}
+
+/* Intro example beside its alt text rather than above it — the photo is an
+   illustration here, not the thing being judged, so it can be small. */
+@media (min-width: 700px) {
+  html.is-embed .example {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
+    column-gap: 1.5rem;
+    align-items: center;
+    margin: 1.25rem 0;
+  }
+  html.is-embed .example-caption {
+    grid-column: 1;
+    grid-row: 1;
+    margin-top: 0;
+    text-align: left;
+  }
+  html.is-embed .example-img {
+    grid-column: 2;
+    grid-row: 1;
+    max-height: 200px;
+    margin: 0 0 0 auto;
+  }
+}
+
 /* Screenshot beside the question instead of above it — roughly 40% off the
-   height of a question card. Not sticky: with the iframe auto-sized to its
-   content this document never scrolls, so there is nothing to stick against. */
+   height of a question card. Photo right, question and answers left, so the
+   reading order on screen matches the DOM order a screen reader follows.
+   Not sticky: with the iframe auto-sized to its content this document never
+   scrolls, so there is nothing to stick against. */
 @media (min-width: 900px) {
   /* :not([hidden]) is load-bearing. This selector's specificity beats the UA
      stylesheet's `[hidden] { display: none }`, so without it `display: grid`
@@ -554,7 +600,7 @@ html.is-embed .option {
      up as an empty card below the intro and results screens. */
   html.is-embed #screen-question:not([hidden]) {
     display: grid;
-    grid-template-columns: minmax(0, 430px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
     column-gap: 1.75rem;
     align-items: start;
   }
@@ -563,17 +609,21 @@ html.is-embed .option {
     grid-row: 1;
   }
   html.is-embed #screen-question > .q-figure {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 2 / span 2;
     margin-bottom: 0;
   }
+  html.is-embed #screen-question > .q-figure img {
+    /* Room to spare now that it isn't stacked above the question. */
+    max-height: 460px;
+  }
   html.is-embed #screen-question > .q-prompt {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 2;
     margin-top: 0;
   }
   html.is-embed #screen-question > #answer-form {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 3;
   }
 }
