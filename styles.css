@@ -275,7 +275,12 @@ h3 {
 .q-figure img {
   display: block;
   max-width: 100%;
+  /* Cap the tall screenshots (the TideWatch legend is 774px) so a question
+     card stays roughly one screen. Aspect ratio is preserved by height:auto. */
+  max-height: 340px;
+  width: auto;
   height: auto;
+  object-fit: contain;
   margin: 0 auto;
   border: 1px solid var(--silver);
   border-radius: 6px;
@@ -490,5 +495,72 @@ a {
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
+  }
+}
+
+/* --- Embed mode ----------------------------------------------------------
+ * Set by the inline <head> script when the URL carries ?embed=1. The quiz is
+ * inside an iframe on a CMS page that already supplies the page title, lede and
+ * chrome, and whose parent script sizes the iframe to this content — so there is
+ * no inner scrollbar and every pixel of height here is page height. Trim
+ * accordingly. See embed-parent.js and the README.
+ * ------------------------------------------------------------------------- */
+
+/* A block formatting context, so child margins can't collapse out through body
+   and make it measure shorter than what's on screen. The parent sizes the iframe
+   from body's box (see sendHeight in quiz.js). */
+html.is-embed body {
+  display: flow-root;
+}
+
+html.is-embed .app {
+  /* The host page's heading supplies the top spacing. */
+  padding-top: 0;
+  padding-bottom: 1rem;
+  /* Wide enough for the two-column question layout below. */
+  max-width: 1040px;
+}
+
+/* Prose screens keep a readable measure even though .app got wider. */
+html.is-embed #screen-intro,
+html.is-embed #screen-results {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Decorative only, and the reader has already scrolled a long way to reach the
+   results. Its job on the standalone page doesn't carry over. */
+html.is-embed .flair--high {
+  display: none;
+}
+
+/* Screenshot beside the question instead of above it — roughly 40% off the
+   height of a question card. Not sticky: with the iframe auto-sized to its
+   content this document never scrolls, so there is nothing to stick against. */
+@media (min-width: 900px) {
+  html.is-embed #screen-question {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
+    column-gap: 1.75rem;
+    align-items: start;
+  }
+  html.is-embed #screen-question > .progress {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  html.is-embed #screen-question > .q-figure {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+    margin-bottom: 0;
+  }
+  html.is-embed #screen-question > .q-prompt {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 0;
+  }
+  html.is-embed #screen-question > #answer-form {
+    grid-column: 2;
+    grid-row: 3;
   }
 }

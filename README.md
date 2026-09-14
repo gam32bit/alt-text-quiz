@@ -17,6 +17,7 @@ server avoids any browser file:// quirks: `python3 -m http.server` then visit
 | `styles.css` | VIMS blue–silver–white theme; responsive; respects reduced motion. |
 | `quiz.js` | Screen routing, scoring, and feedback rendering. |
 | `questions.js` | The question bank — **edit content here**, no logic changes needed. |
+| `embed-parent.js` | Runs on the *host* page, not in the quiz. Sizes the iframe and scrolls the page. See "Embed in Cascade". |
 | `src/images/` | The screenshots used in the quiz. |
 
 ## Editing the quiz
@@ -40,12 +41,66 @@ feedback are preserved); Back is hidden on the first question. The results scree
 
 ## Embed in Cascade (or any CMS)
 
-The whole quiz is self-contained, so it embeds via an iframe:
+The quiz embeds as an iframe, plus a small script on the **host** page that sizes the
+iframe to the quiz's content and does the scrolling. Without that script you get a
+scrollbar inside a scrollbar, and "Next question" leaves you stranded wherever you
+were — a cross-origin iframe cannot resize itself or scroll its parent.
+
+### 1. The iframe, in the page's WYSIWYG
 
 ```html
-<iframe src="https://<user>.github.io/<repo>/" width="100%" height="900"
-        title="Alt Text Quiz" style="border:0;"></iframe>
+<iframe src="https://gam32bit.github.io/alt-text-quiz/?embed=1"
+        title="Alt Text Quiz" width="100%" height="900"
+        allow="clipboard-write" style="border:0; display:block; width:100%;"></iframe>
 ```
+
+- `?embed=1` turns on embed mode: the quiz skips its own start screen (the host page
+  already has the title and lede), trims its padding, caps screenshot height, drops the
+  results photo, and goes two-column on the question screen at 900px and wider.
+- `allow="clipboard-write"` is **required** for the "Share quiz" button. Without it the
+  browser blocks the Clipboard API in a cross-origin frame and the button silently
+  falls back to printing the link on screen.
+- Keep `height="900"`. It is the fallback if the script below never loads — the embed
+  then behaves like a plain iframe rather than collapsing. For the same reason, do
+  **not** add `scrolling="no"`.
+
+### 2. The host-page script, via INCLUDES_EXTRA
+
+Following W&M Web & Design's pattern for JavaScript in Cascade:
+
+1. Create a `_scripts` folder in the section holding the page.
+2. Add `embed-parent.js` from this repo to it (as `alt-text-quiz-embed.js`, say).
+3. Create a format or block in a `_blocks` folder whose content loads it:
+   ```html
+   <script src="/path/to/_scripts/alt-text-quiz-embed.js"></script>
+   ```
+4. On the quiz page, Configure tab, assign that block in the **INCLUDES_EXTRA** region.
+5. Publish the script and the block **before** the page that includes them.
+
+Nothing here touches the quiz's CSS, so the Cascade template has nothing to block —
+the stylesheet stays inside the iframe, where it also cannot collide with the site
+theme (this stylesheet sets `*`, `html`, `body`, `h1`–`h3`, `a`, and generic class
+names like `.btn` and `.sr-only`, so it is not safe to load on a CMS page as-is).
+
+### 3. Tune the header offset
+
+`embed-parent.js` has a `HEADER_OFFSET` constant, default `90`, so scroll targets don't
+land underneath the sticky site header. Measure the real one once — select the header
+in devtools and run `$0.getBoundingClientRect().height` — and set it.
+
+### Moving the quiz off GitHub Pages
+
+Two constants, one in each file: `PARENT_ORIGIN` in `quiz.js` (the page the quiz is
+embedded on) and `QUIZ_ORIGIN` in `embed-parent.js` (where the quiz is served). Both
+are checked on every message; neither is ever `"*"`.
+
+### The messages
+
+| Message | Direction | Effect |
+|---|---|---|
+| `altquiz:height` | quiz → host | Host sets the iframe's height. No inner scrollbar. |
+| `altquiz:scroll` | quiz → host | Host scrolls so the given offset sits below the header. Sent on Next, Back, Submit, and results. |
+| `altquiz:parenturl` | host → quiz | Tells the quiz the host URL (for Share) and prompts a height. |
 
 ## Accessibility
 

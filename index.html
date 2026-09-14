@@ -8,6 +8,16 @@
       name="description"
       content="An interactive quiz that teaches how to write good alt text, using real examples from the VIMS.edu website."
     />
+    <!--
+      Embed mode. Set from the query string before first paint so the trimmed
+      layout never flashes the full-page one. Keyed on <html> because <body>
+      does not exist yet at this point in the parse.
+    -->
+    <script>
+      if (/[?&]embed=1(&|$)/.test(location.search)) {
+        document.documentElement.classList.add("is-embed");
+      }
+    </script>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
