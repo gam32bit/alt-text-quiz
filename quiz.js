@@ -39,6 +39,82 @@
     shareStatus: document.getElementById("share-status"),
   };
 
+  // --- parent-page bridge (embed mode) ------------------------------------
+  // Embedded in a CMS page, the parent owns layout: it sizes the iframe to our
+  // content so there is no inner scrollbar, and it does the scrolling, because
+  // a cross-origin child cannot scroll its parent. Change PARENT_ORIGIN (and
+  // QUIZ_ORIGIN in embed-parent.js) if the quiz moves.
+  const PARENT_ORIGIN = "https://www.vims.edu";
+  const IS_EMBED = document.documentElement.classList.contains("is-embed");
+  const inFrame = IS_EMBED && window.parent !== window;
+
+  // Set by the parent so "Share quiz" copies the CMS page URL, not this
+  // iframe's own src.
+  let parentUrl = "";
+
+  function postToParent(msg) {
+    if (!inFrame) return;
+    try {
+      window.parent.postMessage(msg, PARENT_ORIGIN);
+    } catch (e) {
+      // Parent gone or origin mismatch. Embedding is an enhancement; the quiz
+      // still works, it just scrolls the way it did before.
+    }
+  }
+
+  // Measure the body box, not the document. Once the parent has sized the
+  // iframe, documentElement.scrollHeight is floored by the iframe's own height,
+  // so it can report growth but never a shrink — every question would inherit
+  // the tallest screen's height. body is content-sized (and display:flow-root in
+  // embed mode keeps child margins from collapsing out of it).
+  function sendHeight() {
+    const body = document.body;
+    postToParent({
+      type: "altquiz:height",
+      height: Math.ceil(
+        Math.max(body.getBoundingClientRect().height, body.scrollHeight)
+      ),
+    });
+  }
+
+  // `top` is an offset in this document to bring to the top of the parent's
+  // viewport. Height goes first and the scroll waits a frame, so the parent has
+  // already resized the iframe before it works out where to land.
+  function requestScroll(top) {
+    if (!inFrame) return;
+    sendHeight();
+    requestAnimationFrame(function () {
+      postToParent({
+        type: "altquiz:scroll",
+        top: Math.max(0, Math.round(top)),
+      });
+    });
+  }
+
+  // The focus moves below are deliberate, but the browser's implicit
+  // scroll-into-view would race the parent's scroll. In embed mode the parent
+  // owns positioning and focus just moves.
+  const FOCUS_OPTS = inFrame ? { preventScroll: true } : undefined;
+
+  if (inFrame) {
+    window.addEventListener("message", function (event) {
+      if (event.origin !== PARENT_ORIGIN) return;
+      const data = event.data;
+      if (!data || data.type !== "altquiz:parenturl") return;
+      if (typeof data.url === "string") parentUrl = data.url;
+      // The parent announcing itself is also our cue to (re)send the height.
+      // Its listener may have attached after we sent the first one.
+      sendHeight();
+    });
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(sendHeight).observe(document.body);
+    }
+    // Images settle after the observer is wired; catch the final size too.
+    window.addEventListener("load", sendHeight);
+    sendHeight();
+  }
+
   // --- screen routing -----------------------------------------------------
   function showScreen(name) {
     state.screen = name;
@@ -155,7 +231,7 @@
       // Focus the feedback region so screen readers read it in full; pushing
       // the explanation through the live region while moving focus elsewhere
       // would cut the announcement off.
-      els.feedback.focus();
+      els.feedback.focus(FOCUS_OPTS);
     }
   }
 
@@ -172,6 +248,8 @@
 
     state.answers[i] = selected;
     showAnswerState(i, selected, true);
+    // Bring the explanation into view, keeping the answered options above it.
+    requestScroll(els.feedback.getBoundingClientRect().top + window.scrollY - 120);
   }
 
   function next() {
@@ -179,6 +257,7 @@
       state.currentIndex++;
       renderQuestion();
       focusPrompt();
+      requestScroll(0);
     } else {
       showResults();
     }
@@ -189,12 +268,13 @@
       state.currentIndex--;
       renderQuestion();
       focusPrompt();
+      requestScroll(0);
     }
   }
 
   function focusPrompt() {
     els.prompt.setAttribute("tabindex", "-1");
-    els.prompt.focus();
+    els.prompt.focus(FOCUS_OPTS);
   }
 
   function computeScore() {
@@ -224,7 +304,8 @@
     // focus into the results screen rather than letting it fall to <body>.
     const title = document.getElementById("results-title");
     title.setAttribute("tabindex", "-1");
-    title.focus();
+    title.focus(FOCUS_OPTS);
+    requestScroll(0);
   }
 
   function startQuiz() {
@@ -234,10 +315,11 @@
     renderQuestion();
     showScreen("question");
     focusPrompt();
+    requestScroll(0);
   }
 
   function shareQuiz() {
-    const url = window.location.href;
+    const url = parentUrl || window.location.href;
     function ok() {
       els.shareStatus.textContent = "Link copied to clipboard!";
     }
@@ -263,7 +345,8 @@
     showScreen("intro");
     const h2 = screens.intro.querySelector("h2");
     h2.setAttribute("tabindex", "-1");
-    h2.focus();
+    h2.focus(FOCUS_OPTS);
+    requestScroll(0);
   });
   document.getElementById("begin-btn").addEventListener("click", startQuiz);
   els.backBtn.addEventListener("click", back);
@@ -276,5 +359,5 @@
   els.shareBtn.addEventListener("click", shareQuiz);
   document.getElementById("restart-btn").addEventListener("click", startQuiz);
 
-  showScreen("start");
+  showScreen(IS_EMBED ? "intro" : "start");
 })();
