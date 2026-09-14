@@ -155,36 +155,40 @@
           </figcaption>
         </figure>
 
-        <h2 id="q-prompt" class="q-prompt"></h2>
+        <!-- Prompt and form share one grid cell so the tall screenshot beside
+             them can't stretch the rows apart. -->
+        <div class="q-main">
+          <h2 id="q-prompt" class="q-prompt"></h2>
 
-        <form id="answer-form">
-          <fieldset class="q-options-fieldset">
-            <legend class="sr-only">Choose the best alt text</legend>
-            <div id="q-options" class="q-options"></div>
-          </fieldset>
+          <form id="answer-form">
+            <fieldset class="q-options-fieldset">
+              <legend class="sr-only">Choose the best alt text</legend>
+              <div id="q-options" class="q-options"></div>
+            </fieldset>
 
-          <div
-            id="feedback"
-            class="feedback"
-            role="region"
-            aria-label="Answer feedback"
-            tabindex="-1"
-            hidden
-          ></div>
+            <div
+              id="feedback"
+              class="feedback"
+              role="region"
+              aria-label="Answer feedback"
+              tabindex="-1"
+              hidden
+            ></div>
 
-          <div class="q-actions">
-            <button id="back-btn" class="btn btn--secondary" type="button" hidden>
-              ← Back
-            </button>
-            <span class="q-actions-spacer"></span>
-            <button id="submit-btn" class="btn btn--primary" type="submit" disabled>
-              Submit answer
-            </button>
-            <button id="next-btn" class="btn btn--primary" type="button" hidden>
-              Next question
-            </button>
-          </div>
-        </form>
+            <div class="q-actions">
+              <button id="back-btn" class="btn btn--secondary" type="button" hidden>
+                ← Back
+              </button>
+              <span class="q-actions-spacer"></span>
+              <button id="submit-btn" class="btn btn--primary" type="submit" disabled>
+                Submit answer
+              </button>
+              <button id="next-btn" class="btn btn--primary" type="button" hidden>
+                Next question
+              </button>
+            </div>
+          </form>
+        </div>
       </section>
 
       <!-- 4. Results -------------------------------------------------------- -->
@@ -192,10 +196,19 @@
         <!-- Decorative flair — no takeaway, empty alt. In embed mode this sits in
              the side column, where the crop can stay gentle. -->
         <img class="flair flair--high" src="src/images/graduating-class-2026.jpg" alt="" />
-        <h2 id="results-title">Your results</h2>
-        <p class="final-score" id="final-score"></p>
-        <p class="score-label" id="score-label"></p>
-        <p id="results-message" class="results-message"></p>
+        <!-- One block, so the side column can't stretch the rows apart. -->
+        <div class="results-main">
+          <h2 id="results-title">Your results</h2>
+          <p class="final-score" id="final-score"></p>
+          <p class="score-label" id="score-label"></p>
+          <p id="results-message" class="results-message"></p>
+
+          <div class="results-actions">
+            <button id="share-btn" class="btn btn--secondary" type="button">Share quiz</button>
+            <button id="restart-btn" class="btn btn--secondary" type="button">Retake quiz</button>
+          </div>
+          <p id="share-status" class="share-status" role="status" aria-live="polite"></p>
+        </div>
 
         <div class="results-learn">
           <h3 class="learn-heading">Keep learning</h3>
@@ -218,11 +231,6 @@
           </ul>
         </div>
 
-        <div class="results-actions">
-          <button id="share-btn" class="btn btn--secondary" type="button">Share quiz</button>
-          <button id="restart-btn" class="btn btn--secondary" type="button">Retake quiz</button>
-        </div>
-        <p id="share-status" class="share-status" role="status" aria-live="polite"></p>
       </section>
     </main>
 

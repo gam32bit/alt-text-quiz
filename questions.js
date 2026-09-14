@@ -14,6 +14,10 @@
  *   cascadeNote   (optional) one sentence on how our Cascade templates constrain the
  *                 choice. Rendered as a secondary aside — the quiz is for the whole
  *                 campus, not only the people working in Cascade.
+ *   retired       (optional) true keeps a question in the bank but out of the quiz.
+ *                 Everything that counts questions — the progress label, the segment
+ *                 tracker, the score — reads QUESTIONS, so nothing else needs editing.
+ *                 Delete the flag to put the question back in rotation.
  *
  * The string "(no alt text — mark the image decorative)" is used as a visible option
  * label for cases where the correct move is an empty alt / decorative image.
@@ -31,7 +35,7 @@
 
 const DECORATIVE = "(no alt text — mark the image decorative)";
 
-const QUESTIONS = [
+const QUESTION_BANK = [
   {
     image: "src/images/reu-interns.png",
     screenshotAlt:
@@ -122,6 +126,9 @@ const QUESTIONS = [
       "The page text references FAO “species illustrations,” so a sighted person takes away that this image is that referenced illustration, so the alt text should say as much.",
   },
   {
+    // Retired: the directory page gives too little context for the question to
+    // read clearly. Kept here so it can be put back with one line.
+    retired: true,
     image: "src/images/directory-headshot.png",
     screenshotAlt:
       "Screenshot of a staff directory entry: a headshot on the left, and on the right the name “Joseph Caterine,” job title “Web & Content Strategist,” and contact details. The question asks what alt text the headshot should have.",
@@ -332,3 +339,8 @@ const QUESTIONS = [
       "Aim for the middle: the shortest options leave out the subject, and the paragraph-length one over-describes. With alt text, you want to include enough detail to communicate the key takeaway without overloading the reader with secondary information.",
   },
 ];
+
+// What the quiz actually asks. Retired questions stay in the bank above.
+const QUESTIONS = QUESTION_BANK.filter(function (q) {
+  return !q.retired;
+});
