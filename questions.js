@@ -66,36 +66,38 @@ const QUESTIONS = [
     image: "src/images/tidewatch-legend.png",
     screenshotAlt:
       "Screenshot of a Tidewatch water-level forecast page for Sewells Point. Below the chart is a “Legend Definitions” list in which small colored symbols sit beside text labels. A red arrow has been added pointing to the small red dot beside the label “Sensor Observation (dashed line = forecast).” The question asks about that red dot.",
-    prompt: "What is the best alt text for the red dot in the legend (marked by the arrow)?",
+    prompt:
+      "What is the best alt text for the red dot in the legend (marked by the arrow) on this Tidewatch chart?",
     options: [
       {
         text: "Red dot",
         note:
-          "Hearing “red dot” gives a screen-reader user nothing to act on — the meaning of the dot lives in the label beside it, so it can be treated as decorative and needs no alt text.",
+          "Hearing “red dot” gives a screen-reader user nothing to act on — the meaning of the dot lives in the label beside it.",
       },
       { text: DECORATIVE },
       {
         text: "Red marker showing sensor observations",
         note:
-          "This restates what the label beside it already says, so a screen reader would deliver the same information twice. The dot can be treated as decorative instead — no alt text needed.",
+          "This restates what the label beside it already says, so a screen reader would deliver the same information twice.",
       },
       {
         text: "Sensor Observation",
         note:
-          "This duplicates the visible text label right next to the dot, so a screen reader would read it twice. The dot can be treated as decorative — no alt text needed.",
+          "This duplicates the visible text label right next to the dot, so a screen reader would read it twice.",
       },
     ],
     correctIndex: 1,
     explanation:
-      "The dot carries no meaning the label beside it doesn’t already give.",
+      "The dot carries no meaning the label beside it doesn’t already give. It can be treated as decorative — no alt text needed.",
     cascadeNote:
-      "Cascade requires alt text in the “Display Name” field, so leaving it empty isn’t always an option.",
+      "Cascade requires alt text in the “Display Name” field, so marking decorative isn’t always an option.",
   },
   {
     image: "src/images/american-shad.png",
     screenshotAlt:
       "Screenshot of a species page headed “American shad” with the scientific name “Alosa sapidissima” below it, then a black-and-white scientific illustration of the fish in side profile, followed by descriptive body text. The question asks what alt text the illustration should have.",
-    prompt: "What is the best alt text for this fish illustration?",
+    prompt:
+      "What is the best alt text for this fish illustration on the American shad species of interest page?",
     options: [
       {
         text:
@@ -112,29 +114,30 @@ const QUESTIONS = [
       {
         text: DECORATIVE,
         note:
-          "Defensible — the title already names the species. But the page text refers to its “species illustrations,” so a reader benefits from knowing the illustration is there.",
+          "Defensible — the title already names the species. But the page text refers to “species illustrations,” so a reader benefits from knowing the illustration is there.",
       },
     ],
     correctIndex: 2,
     explanation:
-      "The page text credits its “species illustrations” to the FAO, so what a sighted person takes away is that this is the illustration being referenced — not the species’ name, which the title already gives. Naming the image type is what earns its keep here.",
+      "The page text references FAO “species illustrations,” so a sighted person takes away that this image is that referenced illustration, so the alt text should say as much.",
   },
   {
     image: "src/images/directory-headshot.png",
     screenshotAlt:
       "Screenshot of a staff directory entry: a headshot on the left, and on the right the name “Joseph Caterine,” job title “Web & Content Strategist,” and contact details. The question asks what alt text the headshot should have.",
-    prompt: "What is the best alt text for this headshot?",
+    prompt:
+      "What is the best alt text for this headshot on Joseph Caterine’s directory page?",
     options: [
       {
         text: "Headshot of Joseph Caterine",
         note:
-          "Very close! But “Headshot of” is wasted words — a screen reader already announces that this is an image.",
+          "Very close! But “Headshot of” is unnecessary — a screen reader already announces that this is an image.",
       },
       { text: "Joseph Caterine" },
       {
         text: "A smiling man with dark hair in a plaid shirt, outdoors",
         note:
-          "This describes appearance instead of identity — in a staff directory, the person’s name is the information the reader needs.",
+          "This describes appearance instead of meaning.",
       },
       {
         text: DECORATIVE,
@@ -150,7 +153,8 @@ const QUESTIONS = [
     image: "src/images/natural-resources-icon.png",
     screenshotAlt:
       "Screenshot of a card: a small stylized fish icon sits above a heading that reads “NATURAL RESOURCES,” followed by a sentence about sustainable management of fisheries and aquaculture. The question asks about the fish icon above the heading.",
-    prompt: "What is the best alt text for this fish icon?",
+    prompt:
+      "This fish icon sits on a navigation card on the Sections page. What is the best alt text for it?",
     options: [
       {
         text: "Fish icon",
@@ -173,7 +177,7 @@ const QUESTIONS = [
     explanation:
       "Try the removal test: if this icon vanished, the card would say exactly the same thing, because the heading carries all the meaning. Contrast the shad drawing, where the page text referred to the illustration — that image contributed to the page’s content, while this icon is aesthetic.",
     cascadeNote:
-      "Alt text for these icons is handled in Cascade’s back end, so there’s nothing for a web editor to enter.",
+      "Alt text for these icons is handled in Cascade’s back end, so no action is required from web editors.",
   },
   {
     image: "src/images/bottom-oxygen-map.png",
@@ -233,7 +237,7 @@ const QUESTIONS = [
     ],
     correctIndex: 2,
     explanation:
-      "Same idea as the map: name the type, then say what it shows — a general rise since 1980, still short of the goal. No sentence fully replaces a dataset, so offer the numbers another way when you can.",
+      "Same idea as the map: name the image type, then say what it shows — a general rise since 1980, still short of the goal. No sentence fully replaces a dataset, so offer the numbers another way when you can.",
   },
   {
     image: "src/images/marine-life-day.png",
@@ -245,7 +249,7 @@ const QUESTIONS = [
       {
         text: "People at tables",
         note:
-          "Technically true, but it throws away everything that makes the photo worth including — the science, the event, the engagement.",
+          "Technically true, but it misses what makes the photo worth including — the science, the event, the engagement.",
       },
       { text: "Visitors examine specimens under microscopes at VIMS Marine Life Day" },
       {
@@ -273,16 +277,17 @@ const QUESTIONS = [
       {
         text: DECORATIVE,
         note:
-          "A visible caption doesn’t make an image decorative — a caption is ordinary page text, not the image’s alternative.",
+          "This photo communicates real content — a young attendee’s delight at a public event — so hiding it from screen readers loses that. A visible caption doesn’t change that: a caption is ordinary page text, not the image’s alternative, so it’s still best practice to write alt text.",
       },
       {
         text: "A young Marine Science Day attendee holds up a blue crab",
         note:
-          "This is fine alt text — just know it’s nearly word-for-word the caption below, so a screen-reader user hears the same sentence twice. It also leaves out how happy he is, the one thing the caption doesn’t cover.",
+          "This is basically what the caption says, and a screen-reader user would hear it twice, but it suffices as alt text. Still, it misses a takeaway from the photo.",
       },
       {
         text: "A boy smiling",
-        note: "This misses the crab, which is the reason the photo is on the page.",
+        note:
+          "Yes, the boy smiling is a key takeaway from the photo, but the crab is also important to mention as it ties to the event and context of the article.",
       },
       { text: "A grinning boy holds up a blue crab" },
     ],
@@ -312,16 +317,16 @@ const QUESTIONS = [
         text:
           "An open sunlit human palm, fingers slightly curled, cradling roughly a dozen small grey-brown clustered oyster spat, with blurred white aquaculture tanks and equipment visible in the background",
         note:
-          "Thorough, but it over-describes — the lighting, finger position, and blurred background don’t change what a reader learns.",
+          "Thorough, but it over-describes — including details like lighting, finger position and the blurred background distracts from the main takeaway of the image.",
       },
       {
         text: DECORATIVE,
         note:
-          "This photo shows the actual subject of the section — the breeding program’s oysters — so it’s content, not decoration.",
+          "This photo shows the actual subject of the page — the breeding program’s oysters — so it’s content, not decoration.",
       },
     ],
     correctIndex: 1,
     explanation:
-      "Aim for the middle: the shortest options leave out the subject, and the paragraph-length one over-describes. Identify the subject concisely with the context that matters, then stop.",
+      "Aim for the middle: the shortest options leave out the subject, and the paragraph-length one over-describes. With alt text, you want to include enough detail to communicate the key takeaway without overloading the reader with secondary information.",
   },
 ];
