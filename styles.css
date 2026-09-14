@@ -122,32 +122,54 @@ h3 {
   object-position: center 22%;
 }
 
+/* Intro header: the explainer prose on the left, the worked example in the top
+   right corner — the photo with its alt text set below it as a caption. */
+.intro-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  column-gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 1.25rem;
+}
+.intro-head-text > :first-child {
+  margin-top: 0;
+}
+@media (max-width: 699px) {
+  .intro-head {
+    display: block;
+  }
+}
+
 /* Intro example: a photo shown with its alt text. */
 .example {
-  margin: 1.5rem 0;
+  margin: 0;
 }
 .example-img {
   display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  max-height: 360px;
-  width: auto;
+  width: 100%;
+  max-width: 340px;
   height: auto;
-  object-fit: contain;
   border-radius: 6px;
   border: 1px solid var(--silver);
   background: var(--white);
 }
 .example-caption {
-  margin-top: 0.75rem;
-  text-align: center;
+  max-width: 340px;
+  margin-top: 0.5rem;
   font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.45;
   color: var(--ink);
 }
 .example-label {
   font-style: normal;
   font-weight: 700;
   color: var(--vims-blue);
+}
+@media (max-width: 699px) {
+  .example {
+    margin: 1.25rem 0;
+  }
 }
 
 /* --- Buttons ------------------------------------------------------------- */
@@ -180,13 +202,11 @@ h3 {
   background: var(--vims-blue-light);
 }
 
-/* Debatability note on the intro screen — quiet, distinct from the Cascade callout. */
+/* Debatability note on the intro screen — a quiet italic aside, deliberately not
+   a callout so it doesn't compete with the key question below it. */
 .caveat {
-  margin: 1.25rem 0;
-  padding: 0.75rem 0.9rem;
-  border-left: 3px solid var(--silver-dark);
-  background: var(--white);
-  border-radius: 0 6px 6px 0;
+  margin: 1rem 0 0;
+  font-style: italic;
   font-size: 0.92rem;
 }
 
@@ -214,7 +234,7 @@ h3 {
 /* The core rule the whole quiz turns on — given a card of its own so it doesn't
    disappear into the surrounding prose. */
 .key-question {
-  margin: 1rem 0 1.25rem;
+  margin: 0 0 1.25rem;
   padding: 1rem 1.1rem;
   background: var(--white);
   border-left: 5px solid var(--vims-blue-bright);
@@ -556,36 +576,6 @@ html.is-embed .q-prompt {
 html.is-embed .option {
   font-size: 0.95rem;
   padding: 0.7rem 0.9rem;
-}
-
-/* The intro example is an illustration of alt text, not a screenshot to be
-   judged, so it can be small even when it's still stacked. */
-html.is-embed .example-img {
-  max-height: 260px;
-}
-
-/* Intro example beside its alt text rather than above it — the photo is an
-   illustration here, not the thing being judged, so it can be small. */
-@media (min-width: 700px) {
-  html.is-embed .example {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 300px);
-    column-gap: 1.5rem;
-    align-items: center;
-    margin: 1.25rem 0;
-  }
-  html.is-embed .example-caption {
-    grid-column: 1;
-    grid-row: 1;
-    margin-top: 0;
-    text-align: left;
-  }
-  html.is-embed .example-img {
-    grid-column: 2;
-    grid-row: 1;
-    max-height: 200px;
-    margin: 0 0 0 auto;
-  }
 }
 
 /* Screenshot beside the question instead of above it — roughly 40% off the

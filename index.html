@@ -41,39 +41,44 @@
 
       <!-- 2. Intro / explainer --------------------------------------------- -->
       <section id="screen-intro" class="screen" aria-labelledby="intro-title" hidden>
-        <h2 id="intro-title">How this works</h2>
-        <p>
-          You’ll see 10 real images from the VIMS.edu website, each shown in the context where
-          it appears. For each one, pick the alt text you think works best. After you
-          answer, we’ll explain why. You can go back at any time to revisit your answers.
-        </p>
+        <!-- Prose left, the worked example top right like a figure on a page. -->
+        <div class="intro-head">
+          <div class="intro-head-text">
+            <h2 id="intro-title">How this works</h2>
+            <p>
+              You’ll see 10 real images from the VIMS.edu website, each shown in the context where
+              it appears. For each one, pick the alt text you think works best. After you
+              answer, we’ll explain why. You can go back at any time to revisit your answers.
+            </p>
+
+            <p class="caveat">
+              This quiz is rooted in guidance from established accessibility resources, but
+              this is an evolving field and some answers are debatable. Questions or
+              disagreements are welcome — email
+              <a href="mailto:jwcaterine@vims.edu">jwcaterine@vims.edu</a>.
+            </p>
+          </div>
+
+          <figure class="example">
+            <img
+              class="example-img"
+              src="src/images/seaside_in-text-4.jpg"
+              alt="VIMS &amp; Batten School campers conduct quadrat survey research in marsh grass near the Eastern Shore Lab in Wachapreague, VA."
+            />
+            <figcaption class="example-caption">
+              <span class="example-label">Alt text:</span>
+              “VIMS &amp; Batten School campers conduct quadrat survey research in marsh
+              grass near the Eastern Shore Lab in Wachapreague, VA.”
+            </figcaption>
+          </figure>
+        </div>
 
         <aside class="key-question">
-          <p class="key-question-label">The one question to ask about any image</p>
+          <p class="key-question-label">The one question to ask for alt text</p>
           <p class="key-question-text">
             What is the key takeaway that a sighted person would get from this image?
           </p>
         </aside>
-
-        <p class="caveat">
-          This quiz is rooted in guidance from established accessibility resources, but
-          this is an evolving field and some answers are debatable. Questions or
-          disagreements are welcome — email
-          <a href="mailto:jwcaterine@vims.edu">jwcaterine@vims.edu</a>.
-        </p>
-
-        <figure class="example">
-          <img
-            class="example-img"
-            src="src/images/seaside_in-text-4.jpg"
-            alt="VIMS &amp; Batten School campers conduct quadrat survey research in marsh grass near the Eastern Shore Lab in Wachapreague, VA."
-          />
-          <figcaption class="example-caption">
-            <span class="example-label">Alt text:</span>
-            “VIMS &amp; Batten School campers conduct quadrat survey research in marsh
-            grass near the Eastern Shore Lab in Wachapreague, VA.”
-          </figcaption>
-        </figure>
 
         <details class="primer">
           <summary>New to alt text? Read this first (optional)</summary>
