@@ -10,6 +10,10 @@
  *                 `note` (optional) is shown when the learner picks that option and
  *                 it isn't the best one: a short, specific reason why it falls short.
  *   correctIndex  index of the best answer in options
+ *   alsoAcceptable (optional) array of option indexes that also count as right —
+ *                 for questions where a second answer is defensible, or is the answer
+ *                 our CMS forces. Scored as correct, but marked distinctly so the
+ *                 single best answer stays clear.
  *   explanation   teaching feedback shown after answering. Keep it to two sentences.
  *   cascadeNote   (optional) one sentence on how our Cascade templates constrain the
  *                 choice. Rendered as a secondary aside — the quiz is for the whole
@@ -131,23 +135,26 @@ const QUESTIONS = [
       {
         text: "Headshot of Joseph Caterine",
         note:
-          "Very close! But “Headshot of” is unnecessary — a screen reader already announces that this is an image.",
+          "“Headshot of” is filler — a screen reader already announces that this is an image — and the name is already in the text beside the photo.",
       },
-      { text: "Joseph Caterine" },
+      {
+        text: "Joseph Caterine",
+        note:
+          "This is the right answer in Cascade, and it is never harmful — it just repeats a name the entry already gives, so a screen-reader user hears it twice.",
+      },
       {
         text: "A smiling man with dark hair in a plaid shirt, outdoors",
         note:
           "This describes appearance instead of meaning.",
       },
-      {
-        text: DECORATIVE,
-        note:
-          "An empty alt hides the photo entirely, and what a sighted visitor takes away — that this is a picture of the person the entry is about — goes with it.",
-      },
+      { text: DECORATIVE },
     ],
-    correctIndex: 1,
+    correctIndex: 3,
+    alsoAcceptable: [1],
     explanation:
-      "What a sighted person takes away is that this is a photo of the person on this directory page, so the full name is the right alt text. Skip “Headshot of,” “Image of,” and “Photo of” — a screen reader already announces it’s an image.",
+      "Try the removal test: the entry already names the person right beside the photo, so a screen-reader user learns nothing new from the image — it can be decorative. Where you can’t mark an image decorative, the person’s full name is the answer: never “Headshot of,” and never a description of their appearance.",
+    cascadeNote:
+      "Cascade requires alt text in the “Display Name” field, so decorative isn’t an option here — use the person’s full name.",
   },
   {
     image: "src/images/natural-resources-icon.png",

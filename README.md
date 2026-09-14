@@ -27,7 +27,10 @@ path, the screenshot's own alt text (`screenshotAlt` — page context, written s
 give the answer away), the `prompt`, the answer `options`, the `correctIndex`, and the
 `explanation` shown after answering. Each non-best option can also carry a `note` — a short,
 option-specific reason it falls short, shown above the general explanation when the learner
-picks it. Add, remove, or reword freely — the logic is fully data-driven.
+picks it. A question can also list `alsoAcceptable: [i]` — option indexes that are defensible,
+or that Cascade forces on us; they score as correct and are marked "also acceptable" rather
+than wrong, and their `note` explains the trade-off. Add, remove, or reword freely — the
+logic is fully data-driven.
 
 Learners can move **Back** to revisit earlier questions (their previous answer and its
 feedback are preserved); Back is hidden on the first question. The results screen has a
@@ -56,9 +59,10 @@ were — a cross-origin iframe cannot resize itself or scroll its parent.
 
 - `?embed=1` turns on embed mode: the quiz skips its own start screen (the host page
   already has the title and lede), drops the card chrome and tinted background so the
-  content sits straight on white, shrinks the results photo, puts the intro example
-  photo beside its alt text at 700px and wider, and goes two-column on the question
-  screen at 900px and wider — screenshot right, question and answers left.
+  content sits straight on white, shrinks the results photo, and goes two-column on the
+  question screen at 900px and wider — screenshot right, question and answers left. (The
+  intro's two-column head — prose left, example photo top right — is not embed-specific;
+  it applies in both modes at 700px and wider.)
 - `allow="clipboard-write"` is **required** for the "Share quiz" button. Without it the
   browser blocks the Clipboard API in a cross-origin frame and the button silently
   falls back to printing the link on screen.

@@ -185,28 +185,40 @@
     }
   }
 
+  // Some questions have a second answer that is also defensible — or that our CMS
+  // forces — listed in `alsoAcceptable`. It scores, but it isn't the best answer.
+  function isAlsoAcceptable(q, selected) {
+    return (q.alsoAcceptable || []).indexOf(selected) !== -1;
+  }
+
   // Render the answered/locked state for question i with the chosen option.
   function showAnswerState(i, selected, announce) {
     const q = QUESTIONS[i];
     const isCorrect = selected === q.correctIndex;
+    const isAcceptable = !isCorrect && isAlsoAcceptable(q, selected);
 
     const labels = els.optionsForm.querySelectorAll(".option");
     labels.forEach(function (label, idx) {
       const input = label.querySelector("input");
       input.disabled = true;
       input.checked = idx === selected;
-      label.classList.remove("is-correct", "is-wrong");
+      label.classList.remove("is-correct", "is-acceptable", "is-wrong");
       if (idx === q.correctIndex) {
         label.classList.add("is-correct");
       } else if (idx === selected) {
-        label.classList.add("is-wrong");
+        label.classList.add(isAcceptable ? "is-acceptable" : "is-wrong");
       }
     });
 
-    const heading = isCorrect ? "✓ Best practice" : "Good start";
-    // Option-specific note for the choice the learner made (wrong answers only).
+    const heading = isCorrect
+      ? "✓ Best practice"
+      : isAcceptable
+      ? "✓ Also acceptable"
+      : "Good start";
+    // Option-specific note for the choice the learner made (anything but the best answer).
     const note = !isCorrect ? q.options[selected].note : undefined;
-    els.feedback.className = "feedback " + (isCorrect ? "is-correct" : "is-wrong");
+    const tone = isCorrect ? "is-correct" : isAcceptable ? "is-acceptable" : "is-wrong";
+    els.feedback.className = "feedback " + tone;
     // The Cascade note is a secondary aside: the lesson above it is platform-neutral,
     // and most readers of this quiz don't work in Cascade at all.
     const cascade = q.cascadeNote
@@ -279,7 +291,9 @@
 
   function computeScore() {
     return state.answers.reduce(function (total, selected, i) {
-      return total + (selected === QUESTIONS[i].correctIndex ? 1 : 0);
+      const q = QUESTIONS[i];
+      const credited = selected === q.correctIndex || isAlsoAcceptable(q, selected);
+      return total + (credited ? 1 : 0);
     }, 0);
   }
 
