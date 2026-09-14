@@ -211,6 +211,32 @@ h3 {
   margin-bottom: 0;
 }
 
+/* The core rule the whole quiz turns on — given a card of its own so it doesn't
+   disappear into the surrounding prose. */
+.key-question {
+  margin: 1rem 0 1.25rem;
+  padding: 1rem 1.1rem;
+  background: var(--white);
+  border-left: 5px solid var(--vims-blue-bright);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: var(--shadow);
+}
+.key-question-label {
+  margin: 0 0 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vims-blue-bright);
+}
+.key-question-text {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--vims-blue);
+}
+
 /* --- Intro primer -------------------------------------------------------- */
 .primer {
   background: var(--vims-blue-light);
