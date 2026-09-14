@@ -10,10 +10,6 @@
  *                 `note` (optional) is shown when the learner picks that option and
  *                 it isn't the best one: a short, specific reason why it falls short.
  *   correctIndex  index of the best answer in options
- *   alsoAcceptable (optional) array of option indexes that also count as right —
- *                 for questions where a second answer is defensible, or is the answer
- *                 our CMS forces. Scored as correct, but marked distinctly so the
- *                 single best answer stays clear.
  *   explanation   teaching feedback shown after answering. Keep it to two sentences.
  *   cascadeNote   (optional) one sentence on how our Cascade templates constrain the
  *                 choice. Rendered as a secondary aside — the quiz is for the whole
@@ -150,7 +146,6 @@ const QUESTIONS = [
       { text: DECORATIVE },
     ],
     correctIndex: 3,
-    alsoAcceptable: [1],
     explanation:
       "Try the removal test: the entry already names the person right beside the photo, so a screen-reader user learns nothing new from the image — it can be decorative. Where you can’t mark an image decorative, the person’s full name is the answer: never “Headshot of,” and never a description of their appearance.",
     cascadeNote:

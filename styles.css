@@ -362,17 +362,6 @@ h3 {
   font-weight: 700;
   color: var(--correct);
 }
-/* A second answer that is defensible (or is the right call in Cascade) — marked
-   as credited, but visibly distinct from the single best answer. */
-.option.is-acceptable {
-  border-color: var(--vims-blue-bright);
-  background: var(--vims-blue-light);
-}
-.option.is-acceptable .option-text::after {
-  content: " ✓ also acceptable — your choice";
-  font-weight: 700;
-  color: var(--vims-blue-bright);
-}
 .option.is-wrong {
   border-color: var(--wrong);
   background: var(--wrong-bg);
@@ -395,10 +384,6 @@ h3 {
   border-left-color: var(--correct);
   background: var(--correct-bg);
 }
-.feedback.is-acceptable {
-  border-left-color: var(--vims-blue-bright);
-  background: var(--vims-blue-light);
-}
 .feedback.is-wrong {
   border-left-color: var(--wrong);
   background: var(--wrong-bg);
@@ -409,9 +394,6 @@ h3 {
 }
 .feedback.is-correct .feedback-heading {
   color: var(--correct);
-}
-.feedback.is-acceptable .feedback-heading {
-  color: var(--vims-blue);
 }
 .feedback.is-wrong .feedback-heading {
   color: var(--wrong);

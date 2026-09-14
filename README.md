@@ -27,10 +27,7 @@ path, the screenshot's own alt text (`screenshotAlt` — page context, written s
 give the answer away), the `prompt`, the answer `options`, the `correctIndex`, and the
 `explanation` shown after answering. Each non-best option can also carry a `note` — a short,
 option-specific reason it falls short, shown above the general explanation when the learner
-picks it. A question can also list `alsoAcceptable: [i]` — option indexes that are defensible,
-or that Cascade forces on us; they score as correct and are marked "also acceptable" rather
-than wrong, and their `note` explains the trade-off. Add, remove, or reword freely — the
-logic is fully data-driven.
+picks it. Add, remove, or reword freely — the logic is fully data-driven.
 
 Learners can move **Back** to revisit earlier questions (their previous answer and its
 feedback are preserved); Back is hidden on the first question. The results screen has a
