@@ -1,7 +1,11 @@
 # Alt Text Quiz
 
+![A learner working through the quiz: picking an answer, reading the feedback, and moving to the next question.](src/images/alt-text-quiz-demo.gif)
+
 An interactive quiz that teaches how to write good alt text, using real screenshots
 from the VIMS website. Static, framework-free (HTML/CSS/JS) — no build step.
+
+**Live at:** <https://www.vims.edu/intranet/comms_marketing/web_policy/digital-accessibility/alt-text-quiz/>
 
 ## Run locally
 
@@ -18,8 +22,8 @@ server avoids any browser file:// quirks: `python3 -m http.server` then visit
 | `quiz.js` | Screen routing, scoring, and feedback rendering. |
 | `questions.js` | The question bank — **edit content here**, no logic changes needed. |
 | `enhance.js` | Progressive enhancements on top of `quiz.js`: segmented progress tracker and the click-to-enlarge screenshot overlay. |
-| `embed-parent.js` | Runs on the *host* page, not in the quiz. Sizes the iframe, scrolls the page, and posts the visible viewport strip to the quiz. See "Embed in Cascade". |
-| `src/images/` | The screenshots used in the quiz. |
+| `embed-parent.js` | Runs on the *host* page, not in the quiz. Sizes the iframe, scrolls the page, and posts the visible viewport strip to the quiz. See "Embed in a CMS". |
+| `src/images/` | The screenshots used in the quiz, plus the demo GIF at the top of this README. |
 
 ## Editing the quiz
 
@@ -38,7 +42,8 @@ headshot question is retired right now.
 
 Learners can move **Back** to revisit earlier questions (their previous answer and its
 feedback are preserved); Back is hidden on the first question. The results screen has a
-**Share quiz** button that copies the page URL to the clipboard.
+**Share quiz** button that copies the quiz's public URL to the clipboard — the
+`CANONICAL_URL` constant in `quiz.js`, or the host page's URL when embedded.
 
 ## Deploy to GitHub Pages
 
@@ -46,14 +51,14 @@ feedback are preserved); Back is hidden on the first question. The results scree
 2. Settings → Pages → deploy from the `main` branch, root (`/`).
 3. The quiz will be served at `https://<user>.github.io/<repo>/`.
 
-## Embed in Cascade (or any CMS)
+## Embed in a CMS
 
 The quiz embeds as an iframe, plus a small script on the **host** page that sizes the
 iframe to the quiz's content and does the scrolling. Without that script you get a
 scrollbar inside a scrollbar, and "Next question" leaves you stranded wherever you
 were — a cross-origin iframe cannot resize itself or scroll its parent.
 
-### 1. The iframe, in the page's WYSIWYG
+### 1. The iframe
 
 ```html
 <iframe src="https://gam32bit.github.io/alt-text-quiz/?embed=1"
@@ -74,30 +79,24 @@ were — a cross-origin iframe cannot resize itself or scroll its parent.
   then behaves like a plain iframe rather than collapsing. For the same reason, do
   **not** add `scrolling="no"`.
 
-### 2. The host-page script, via INCLUDES_EXTRA
+### 2. The host-page script
 
-Following W&M Web & Design's pattern for JavaScript in Cascade:
+Load `embed-parent.js` from this repo on the page holding the iframe, however your CMS
+adds page-level JavaScript — a template include, a per-page script region, or a plain
+`<script src="...">` in the page source:
 
-1. Create a `_scripts` folder in the section holding the page.
-2. Add `embed-parent.js` from this repo to it (as `alt-text-quiz-embed.js`, say).
-3. Create a **Velocity** format in a `_formats` folder — name it to match the script,
-   e.g. `alt-text-quiz-embed` — whose entire contents is the one line that loads it:
-   ```html
-   <script src="/path/to/_scripts/alt-text-quiz-embed.js"></script>
-   ```
-   Velocity, not XSLT: a Velocity format passes through anything that isn't a `#`
-   directive or a `$` reference, so this needs no templating at all. XSLT serializes
-   empty elements as self-closing, and a `<script src="..."/>` makes HTML parsers
-   swallow the rest of the page as script content.
-4. On the quiz page, Configure tab, assign that format in the **INCLUDES_EXTRA** region.
-5. Publish the `_scripts` file, then republish the quiz page. The format itself is not
-   a publishable asset — it is applied when the page renders — so the page needs a
-   republish to pick it up.
+```html
+<script src="/path/to/alt-text-quiz-embed.js"></script>
+```
 
-Nothing here touches the quiz's CSS, so the Cascade template has nothing to block —
-the stylesheet stays inside the iframe, where it also cannot collide with the site
-theme (this stylesheet sets `*`, `html`, `body`, `h1`–`h3`, `a`, and generic class
-names like `.btn` and `.sr-only`, so it is not safe to load on a CMS page as-is).
+Write the tag with a closing `</script>`; a self-closing `<script src="..."/>` makes
+HTML parsers swallow the rest of the page as script content. If your CMS publishes the
+script as a separate asset, publish it before (or alongside) the page that loads it.
+
+Nothing here touches the quiz's CSS, so the CMS template has nothing to block — the
+stylesheet stays inside the iframe, where it also cannot collide with the site theme
+(this stylesheet sets `*`, `html`, `body`, `h1`–`h3`, `a`, and generic class names like
+`.btn` and `.sr-only`, so it is not safe to load on a CMS page as-is).
 
 ### 3. Tune the header offset
 
@@ -109,7 +108,8 @@ in devtools and run `$0.getBoundingClientRect().height` — and set it.
 
 Two constants, one in each file: `PARENT_ORIGIN` in `quiz.js` (the page the quiz is
 embedded on) and `QUIZ_ORIGIN` in `embed-parent.js` (where the quiz is served). Both
-are checked on every message; neither is ever `"*"`.
+are checked on every message; neither is ever `"*"`. If the public page moves too,
+update `CANONICAL_URL` in `quiz.js` — that's what "Share quiz" copies outside embed mode.
 
 ### The messages
 

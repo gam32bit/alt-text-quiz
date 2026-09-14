@@ -48,6 +48,12 @@
   const IS_EMBED = document.documentElement.classList.contains("is-embed");
   const inFrame = IS_EMBED && window.parent !== window;
 
+  // Where the quiz lives publicly. "Share quiz" copies this rather than the
+  // GitHub Pages URL (or an iframe's own src), so the link people pass around
+  // is the page with the surrounding context.
+  const CANONICAL_URL =
+    "https://www.vims.edu/intranet/comms_marketing/web_policy/digital-accessibility/alt-text-quiz/";
+
   // Set by the parent so "Share quiz" copies the CMS page URL, not this
   // iframe's own src.
   let parentUrl = "";
@@ -322,7 +328,7 @@
   }
 
   function shareQuiz() {
-    const url = parentUrl || window.location.href;
+    const url = parentUrl || CANONICAL_URL;
     function ok() {
       els.shareStatus.textContent = "Link copied to clipboard!";
     }
